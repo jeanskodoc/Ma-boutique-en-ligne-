@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique En Ligne - Accueil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            margin-right: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .boutique-name {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .owner {
+            font-size: 18px;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            margin: 5px 10px;
+            background: var(--light);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 50px 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-btn {
+            padding: 15px 30px;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cta-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary);
+            font-size: 30px;
+        }
+        
+        .feature-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .benefits h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .benefit-icon {
+            color: var(--success);
+            font-size: 24px;
+            margin-top: 5px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 50px 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonials h2 {
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info {
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .boutique-name {
+                font-size: 28px;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 200px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header avec logo et nom -->
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div>
+                    <h1 class="boutique-name">Boutique En Ligne</h1>
+                    <p class="owner">Propriétaire: <strong>Jean Dupont</strong></p>
+                </div>
+            </div>
+            
+            <nav>
+                <button class="nav-btn" onclick="location.href='boutique.html'">
+                    <i class="fas fa-shopping-cart"></i> Voir la Boutique
+                </button>
+                <button class="nav-btn" onclick="location.href='#features'">
+                    <i class="fas fa-star"></i> Nos Avantages
+                </button>
+                <button class="nav-btn" onclick="location.href='#contact'">
+                    <i class="fas fa-phone"></i> Nous Contacter
+                </button>
+            </nav>
+        </header>
+        
+        <!-- Section Hero -->
+        <section class="hero">
+            <h1>Votre Boutique En Ligne de Confiance</h1>
+            <p>Découvrez une expérience d'achat exceptionnelle avec des produits de qualité, une livraison rapide et un service client dédié.</p>
+            <button class="cta-btn" onclick="location.href='boutique.html'">
+                <i class="fas fa-shopping-bag"></i> Commencer mes achats
+            </button>
+        </section>
+        
+        <!-- Section Caractéristiques -->
+        <section class="features" id="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3>Livraison Rapide</h3>
+                <p>Recevez vos commandes en 24-48h partout au Togo avec nos services de livraison partenaires.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Paiement Sécurisé</h3>
+                <p>Payez en toute sécurité avec T-Money, Flooz ou par WhatsApp sans partager vos informations sensibles.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Support Client</h3>
+                <p>Notre équipe est disponible 7j/7 pour répondre à vos questions et résoudre vos problèmes.</p>
+            </div>
+        </section>
+        
+        <!-- Section Avantages -->
+        <section class="benefits">
+            <h2>Pourquoi choisir notre boutique ?</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>Produits de Qualité</h3>
+                        <p>Tous nos articles sont soigneusement sélectionnés et testés pour garantir leur qualité.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>Prix Compétitifs</h3>
+                        <p>Nous proposons les meilleurs prix du marché sans compromis sur la qualité.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>Retours Faciles</h3>
+                        <p>Vous n'êtes pas satisfait? Nous facilitons les retours et remboursements sous 14 jours.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h3>Choix Varié</h3>
+                        <p>Des centaines de produits dans différentes catégories pour répondre à tous vos besoins.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Témoignages -->
+        <section class="testimonials">
+            <h2>Ce que disent nos clients</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"J'ai commandé un smartphone et je l'ai reçu le lendemain! Service exceptionnel et produit de qualité."</p>
+                    <p class="testimonial-author">- Koffi A., Lomé</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Le paiement par Flooz est très pratique et sécurisé. Je recommande vivement cette boutique!"</p>
+                    <p class="testimonial-author">- Aïcha M., Kara</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Le service client est très réactif. Ils m'ont aidé à choisir le produit parfait pour mes besoins."</p>
+                    <p class="testimonial-author">- Marcel D., Sokodé</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer id="contact">
+            <div class="contact-info">
+                <h3>Contactez-nous</h3>
+                <p><i class="fas fa-phone"></i> Service Client: 92 87 16 05</p>
+                <p><i class="fas fa-envelope"></i> Email: contact@boutiqueenligne.tg</p>
+                <p><i class="fas fa-map-marker-alt"></i> Lomé, Togo</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            </div>
+            
+            <p>&copy; 2023 Boutique En Ligne - Tous droits réservés</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animation simple au défilement
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.feature-card, .benefit-item, .testimonial-card');
+            
+            function checkScroll() {
+                animatedElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = 1;
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // Initial state for animation
+            animatedElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            window.addEventListener('scroll', checkScroll);
+            checkScroll(); // Check on load
+        });
+    </script>
+</body>
+</html>
