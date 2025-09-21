@@ -475,7 +475,6 @@
             
             .categories {
                 overflow-x: auto;
-                padding-bottom: 10px;
             }
             
             .modal-content {
@@ -1142,83 +1141,6 @@
 
     <div id="notification" class="notification"></div>
 
-    <!-- API Google Maps (chargée dynamiquement) -->
-    <script>
-        // Clé API Google Maps (à remplacer par votre propre clé)
-        const GOOGLE_MAPS_API_KEY = 'AIzaSyC5C_3x7VXvXxXxXxXxXxXxXxXxXxXxXxXx';
-        
-        // Charger l'API Google Maps
-        function loadGoogleMapsAPI() {
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
-            script.async = true;
-            script.defer = true;
-            document.head.appendChild(script);
-        }
-        
-        // Variable globale pour la carte
-        let map;
-        let marker;
-        
-        // Initialiser la carte
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map-container'), {
-                zoom: 15,
-                center: {lat: 6.1375, lng: 1.2123}, // Centre par défaut (Lomé, Togo)
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-            
-            marker = new google.maps.Marker({
-                map: map,
-                draggable: true,
-                animation: google.maps.Animation.DROP
-            });
-            
-            // Mettre à jour la position quand le marqueur est déplacé
-            marker.addListener('dragend', function() {
-                updateAddressFromPosition(marker.getPosition());
-            });
-        }
-        
-        // Fonction pour obtenir l'adresse à partir des coordonnées
-        function getAddressFromLatLng(lat, lng) {
-            return new Promise((resolve, reject) {
-                const geocoder = new google.maps.Geocoder();
-                const latlng = { lat: lat, lng: lng };
-                
-                geocoder.geocode({ 'location': latlng }, function(results, status) {
-                    if (status === 'OK') {
-                        if (results[0]) {
-                            resolve(results[0].formatted_address);
-                        } else {
-                            reject('Aucun résultat trouvé');
-                        }
-                    } else {
-                        reject('Geocoder a échoué: ' + status);
-                    }
-                });
-            });
-        }
-        
-        // Mettre à jour l'adresse à partir de la position
-        function updateAddressFromPosition(position) {
-            const lat = position.lat();
-            const lng = position.lng();
-            
-            document.getElementById('coordinates').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-            
-            getAddressFromLatLng(lat, lng)
-                .then(address => {
-                    document.getElementById('detected-address').textContent = address;
-                    document.getElementById('adresse').value = address;
-                })
-                .catch(error => {
-                    console.error('Erreur de géocodage:', error);
-                    document.getElementById('detected-address').textContent = 'Adresse non disponible';
-                });
-        }
-    </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Éléments du modal
@@ -1259,9 +1181,9 @@
             const authCancelBtn = document.getElementById('auth-cancel-btn');
             const passwordToggle = document.getElementById('password-toggle');
             
-            // Identifiants administrateur
-            const ADMIN_USERNAME = 'KOLA';
-            const ADMIN_PASSWORD = 'KOLA1@';
+            // Identifiants administrateur (à modifier pour la production)
+            const ADMIN_USERNAME = 'admin';
+            const ADMIN_PASSWORD = 'admin123';
             
             // Données des produits (stockées dans le localStorage)
             let products = JSON.parse(localStorage.getItem('products')) || [];
@@ -1272,9 +1194,6 @@
             // Initialisation
             renderAdminProducts();
             renderClientProducts();
-            
-            // Charger l'API Google Maps
-            loadGoogleMapsAPI();
             
             // Afficher une notification
             function showNotification(message, type) {
@@ -1313,8 +1232,13 @@
             
             // Tentative de connexion
             loginBtn.addEventListener('click', function() {
-                const username = adminUsername.value;
-                const password = adminPassword.value;
+                const username = adminUsername.value.trim();
+                const password = adminPassword.value.trim();
+                
+                if (!username || !password) {
+                    showNotification('Veuillez saisir un identifiant et un mot de passe', 'error');
+                    return;
+                }
                 
                 if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
                     isAuthenticated = true;
@@ -1358,11 +1282,11 @@
             
             // Ajout d'un produit
             addProductBtn.addEventListener('click', function() {
-                const name = document.getElementById('product-name').value;
+                const name = document.getElementById('product-name').value.trim();
                 const price = document.getElementById('product-price').value;
                 const category = document.getElementById('product-category').value;
                 const stock = document.getElementById('product-stock').value;
-                const description = document.getElementById('product-description').value;
+                const description = document.getElementById('product-description').value.trim();
                 const imageFile = productImage.files[0];
                 
                 if (!name || !price || !category || !stock || !description) {
@@ -1372,7 +1296,7 @@
                 
                 let imageData = '';
                 if (imageFile) {
-                                        const reader = new FileReader();
+                    const reader = new FileReader();
                     reader.onload = function(e) {
                         imageData = e.target.result;
                         addProductToStorage(name, price, category, stock, description, imageData);
@@ -1675,17 +1599,13 @@
                         locationDetails.style.display = 'block';
                         locationLoading.style.display = 'none';
                         
-                        // Centrer la carte sur la position
-                        if (map && marker) {
-                            const pos = { lat, lng };
-                            map.setCenter(pos);
-                            marker.setPosition(pos);
-                            
-                            // Mettre à jour l'adresse
-                            updateAddressFromPosition(pos);
-                        }
+                        // Mettre à jour les coordonnées
+                        document.getElementById('coordinates').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                        document.getElementById('detected-address').textContent = 'Adresse en cours de détection...';
                         
-                        showNotification('Position obtenue avec succès!', 'success');
+                        // Pour une vraie implémentation, vous devriez utiliser l'API Google Maps
+                        // avec votre propre clé API
+                        showNotification('Position obtenue avec succès! Activez Google Maps pour une détection précise.', 'success');
                     },
                     function(error) {
                         locationLoading.style.display = 'none';
@@ -1739,10 +1659,12 @@
             
             // Ouvrir les applications de paiement
             yasBtn.addEventListener('click', function() {
+                // Cette URL pourrait ne pas fonctionner sur tous les appareils
                 window.location.href = 'tmoney://send';
             });
             
             floozModalBtn.addEventListener('click', function() {
+                // Cette URL pourrait ne pas fonctionner sur tous les appareils
                 window.location.href = 'flooz://send';
             });
             
@@ -1759,10 +1681,9 @@
             
             // Valider la commande
             function validateOrder() {
-                const nom = document.getElementById('nom').value;
-                const whatsapp = document.getElementById('whatsapp').value;
-                const adresse = document.getElementById('adresse').value;
-                const confirmLocation = document.getElementById('confirm-location').checked;
+                const nom = document.getElementById('nom').value.trim();
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                const adresse = document.getElementById('adresse').value.trim();
                 const confirm = document.getElementById('confirm').checked;
                 
                 if (!nom || !whatsapp || !adresse) {
