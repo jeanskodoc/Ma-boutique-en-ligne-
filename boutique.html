@@ -834,7 +834,7 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: #777;
+            color: 777;
         }
         
         .password-container {
@@ -1167,7 +1167,7 @@
         </div>
         
         <footer>
-            <p>© 2025 - Service Client: 92 87 16 05 | Livraison sous 24-48h</p>
+            <p>© 2023 - Service Client: 92 87 16 05 | Livraison sous 24-48h</p>
         </footer>
     </div>
 
@@ -1211,7 +1211,7 @@
                 
                 <button class="modal-btn modal-btn-cancel" id="cancel-btn">
                     <i class="fas fa-times"></i> Annuler
-                </button>
+                    </button>
             </div>
         </div>
     </div>
@@ -1249,6 +1249,8 @@
             const locationLoading = document.getElementById('location-loading');
             const mapContainer = document.getElementById('map-container');
             const locationDetails = document.getElementById('location-details');
+            const detectedAddress = document.getElementById('detected-address');
+            const coordinates = document.getElementById('coordinates');
             
             // Éléments d'authentification
             const authModal = document.getElementById('auth-modal');
@@ -1267,6 +1269,10 @@
             
             // État d'authentification
             let isAuthenticated = false;
+            
+            // Coordonnées GPS
+            let userCoordinates = null;
+            let userAddress = "";
             
             // Initialisation
             renderAdminProducts();
@@ -1541,7 +1547,7 @@
                 showNotification('Produit chargé pour modification', 'success');
             }
             
-            // Suppression d'un produit
+            // Suppression d'un product
             function deleteProduct(productId, showNotificationFlag = true) {
                 products = products.filter(p => p.id !== productId);
                 localStorage.setItem('products', JSON.stringify(products));
@@ -1671,18 +1677,20 @@
                         const lat = position.coords.latitude;
                         const lng = position.coords.longitude;
                         
-                        // Afficher la carte
-                        mapContainer.style.display = 'block';
+                        // Stocker les coordonnées
+                        userCoordinates = { lat, lng };
+                        
+                        // Afficher les détails de localisation
                         locationDetails.style.display = 'block';
                         locationLoading.style.display = 'none';
                         
                         // Mettre à jour les coordonnées
-                        document.getElementById('coordinates').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-                        document.getElementById('detected-address').textContent = 'Adresse en cours de détection...';
+                        coordinates.textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
                         
-                        // Pour une vraie implémentation, vous devriez utiliser l'API Google Maps
-                        // avec votre propre clé API
-                        showNotification('Position obtenue avec succès! Activez Google Maps pour une détection précise.', 'success');
+                        // Utiliser l'API de géocodage pour obtenir l'adresse
+                        getAddressFromCoordinates(lat, lng);
+                        
+                        showNotification('Position obtenue avec succès!', 'success');
                     },
                     function(error) {
                         locationLoading.style.display = 'none';
@@ -1713,6 +1721,25 @@
                 );
             });
             
+            // Obtenir l'adresse à partir des coordonnées
+            function getAddressFromCoordinates(lat, lng) {
+                // Utilisation de l'API Nominatim (OpenStreetMap) pour le géocodage inverse
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.display_name) {
+                            userAddress = data.display_name;
+                            detectedAddress.textContent = userAddress;
+                        } else {
+                            detectedAddress.textContent = "Adresse non disponible";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur de géocodage:', error);
+                        detectedAddress.textContent = "Erreur lors de la récupération de l'adresse";
+                    });
+            }
+            
             // Gestion des boutons de paiement
             document.getElementById('whatsapp-btn').addEventListener('click', function() {
                 if (!validateOrder()) return;
@@ -1736,12 +1763,10 @@
             
             // Ouvrir les applications de paiement
             yasBtn.addEventListener('click', function() {
-                // Cette URL pourrait ne pas fonctionner sur tous les appareils
                 window.location.href = 'tmoney://send';
             });
             
             floozModalBtn.addEventListener('click', function() {
-                // Cette URL pourrait ne pas fonctionner sur tous les appareils
                 window.location.href = 'flooz://send';
             });
             
@@ -1788,27 +1813,38 @@
                 const whatsapp = document.getElementById('whatsapp').value;
                 const adresse = document.getElementById('adresse').value;
                 
-                let orderText = `*NOUVELLE COMMANDE*%0A%0A`;
-                orderText += `*Nom:* ${nom}%0A`;
-                orderText += `*WhatsApp:* ${whatsapp}%0A`;
-                orderText += `*Adresse:* ${adresse}%0A%0A`;
+                let orderText = `NOUVELLE COMMANDE\n\n`;
+                orderText += `Nom: ${nom}\n`;
+                orderText += `WhatsApp: ${whatsapp}\n`;
+                orderText += `Adresse: ${adresse}\n`;
                 
-                orderText += `*Articles commandés:*%0A`;
+                // Ajouter les coordonnées GPS si disponibles
+                if (userCoordinates) {
+                    orderText += `Coordonnées GPS: ${userCoordinates.lat.toFixed(6)}, ${userCoordinates.lng.toFixed(6)}\n`;
+                    orderText += `Lien Google Maps: https://www.google.com/maps?q=${userCoordinates.lat},${userCoordinates.lng}\n`;
+                }
+                
+                // Ajouter l'adresse détectée si disponible
+                if (userAddress) {
+                    orderText += `Adresse détectée: ${userAddress}\n`;
+                }
+                
+                orderText += `\nArticles commandés:\n`;
                 
                 let total = 0;
                 products.forEach(product => {
                     const quantity = parseInt(document.getElementById(`qty-${product.id}`).value);
                     if (quantity > 0) {
-                        orderText += `- ${product.name} (${quantity} x ${product.price.toLocaleString()} FCFA) = ${(quantity * product.price).toLocaleString()} FCFA%0A`;
+                        orderText += `- ${product.name} (${quantity} x ${product.price.toLocaleString()} FCFA) = ${(quantity * product.price).toLocaleString()} FCFA\n`;
                         total += quantity * product.price;
                     }
                 });
                 
-                orderText += `%0A*Sous-total:* ${total.toLocaleString()} FCFA%0A`;
-                orderText += `*Frais de livraison:* 2 000 FCFA%0A`;
-                orderText += `*TOTAL:* ${(total + 2000).toLocaleString()} FCFA%0A%0A`;
+                orderText += `\nSous-total: ${total.toLocaleString()} FCFA\n`;
+                orderText += `Frais de livraison: 2 000 FCFA\n`;
+                orderText += `TOTAL: ${(total + 2000).toLocaleString()} FCFA\n\n`;
                 
-                orderText += `*Merci pour votre commande!*`;
+                orderText += `Merci pour votre commande!`;
                 
                 return orderText;
             }
@@ -1816,4 +1852,3 @@
     </script>
 </body>
 </html>
-
