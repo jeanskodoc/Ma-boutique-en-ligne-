@@ -208,6 +208,20 @@
             font-size: 40px;
             background-size: cover;
             background-position: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .product-image:hover img {
+            transform: scale(1.05);
         }
         
         .electronique { background: linear-gradient(45deg, #3498db, #2c3e50); }
@@ -614,6 +628,7 @@
             object-fit: cover;
             border-radius: 5px;
             margin-bottom: 8px;
+            cursor: pointer;
         }
         
         .product-actions {
@@ -658,6 +673,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer;
         }
         
         .hidden {
@@ -841,6 +857,51 @@
             position: relative;
         }
         
+        /* Modal de zoom d'image */
+        .image-zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .image-zoom-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .image-zoom-content img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .image-zoom-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -956,6 +1017,14 @@
                         <i class="fas fa-times"></i> Annuler
                     </button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Modal de zoom d'image -->
+        <div class="image-zoom-modal" id="image-zoom-modal">
+            <div class="image-zoom-content">
+                <span class="image-zoom-close" id="image-zoom-close">&times;</span>
+                <img id="zoomed-image" src="" alt="Image zoomée">
             </div>
         </div>
         
@@ -1211,7 +1280,7 @@
                 
                 <button class="modal-btn modal-btn-cancel" id="cancel-btn">
                     <i class="fas fa-times"></i> Annuler
-                    </button>
+                </button>
             </div>
         </div>
     </div>
@@ -1259,6 +1328,11 @@
             const loginBtn = document.getElementById('login-btn');
             const authCancelBtn = document.getElementById('auth-cancel-btn');
             const passwordToggle = document.getElementById('password-toggle');
+            
+            // Éléments de zoom d'image
+            const imageZoomModal = document.getElementById('image-zoom-modal');
+            const imageZoomClose = document.getElementById('image-zoom-close');
+            const zoomedImage = document.getElementById('zoomed-image');
             
             // Identifiants administrateur (à modifier pour la production)
             const ADMIN_USERNAME = 'admin';
@@ -1358,8 +1432,29 @@
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         imagePreview.innerHTML = `<img src="${e.target.result}" alt="Aperçu">`;
+                        // Ajouter l'événement de zoom sur l'aperçu
+                        imagePreview.querySelector('img').addEventListener('click', function() {
+                            openImageZoom(e.target.result);
+                        });
                     };
                     reader.readAsDataURL(file);
+                }
+            });
+            
+            // Fonction pour ouvrir le zoom d'image
+            function openImageZoom(imageSrc) {
+                zoomedImage.src = imageSrc;
+                imageZoomModal.style.display = 'flex';
+            }
+            
+            // Fermer le modal de zoom d'image
+            imageZoomClose.addEventListener('click', function() {
+                imageZoomModal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === imageZoomModal) {
+                    imageZoomModal.style.display = 'none';
                 }
             });
             
@@ -1522,6 +1617,13 @@
                         deleteProduct(productId);
                     });
                 });
+                
+                // Ajouter l'événement de zoom sur les images des produits
+                document.querySelectorAll('.admin-product img').forEach(img => {
+                    img.addEventListener('click', function() {
+                        openImageZoom(this.src);
+                    });
+                });
             }
             
             // Édition d'un produit
@@ -1537,6 +1639,10 @@
                 
                 if (product.image) {
                     imagePreview.innerHTML = `<img src="${product.image}" alt="Aperçu">`;
+                    // Ajouter l'événement de zoom sur l'aperçu
+                    imagePreview.querySelector('img').addEventListener('click', function() {
+                        openImageZoom(product.image);
+                    });
                 } else {
                     imagePreview.innerHTML = '<span>Aperçu de l\'image</span>';
                 }
@@ -1576,7 +1682,9 @@
                     
                     productElement.innerHTML = `
                         ${product.image ? 
-                            `<div class="product-image" style="background-image: url('${product.image}')"></div>` : 
+                            `<div class="product-image">
+                                <img src="${product.image}" alt="${product.name}">
+                            </div>` : 
                             `<div class="product-image ${product.category}"><i class="fas fa-box"></i></div>`
                         }
                         <div class="product-info">
@@ -1617,6 +1725,13 @@
                             input.value = parseInt(input.value) - 1;
                             updateOrderSummary();
                         }
+                    });
+                });
+                
+                // Ajouter l'événement de zoom sur les images des produits
+                document.querySelectorAll('.product-image img').forEach(img => {
+                    img.addEventListener('click', function() {
+                        openImageZoom(this.src);
                     });
                 });
                 
@@ -1852,4 +1967,3 @@
     </script>
 </body>
 </html>
-
