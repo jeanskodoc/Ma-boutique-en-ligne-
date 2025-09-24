@@ -1,20 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-     <style>
-  .btn-retour {
-    padding: 8px 16px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  .btn-retour:hover {
-    background-color: #e0e0e0;
-  }
-</style>
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,12 +27,33 @@
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
+            padding: 0; /* Suppression du padding pour éviter les problèmes de défilement */
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+        }
+        
+        /* Style du bouton retour */
+        .btn-retour {
+            padding: 10px 16px;
+            background-color: var(--light);
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-retour:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
         }
         
         /* Header Styles */
@@ -68,6 +74,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .logo {
@@ -103,11 +110,11 @@
             justify-content: center;
             margin-top: 20px;
             flex-wrap: wrap;
+            gap: 10px;
         }
         
         .nav-btn {
             padding: 12px 25px;
-            margin: 5px 10px;
             background: var(--light);
             border: none;
             border-radius: 8px;
@@ -117,6 +124,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
+            color: inherit;
         }
         
         .nav-btn:hover {
@@ -162,6 +171,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
         }
         
         .cta-btn:hover {
@@ -243,6 +253,7 @@
             color: var(--success);
             font-size: 24px;
             margin-top: 5px;
+            flex-shrink: 0;
         }
         
         /* Testimonials */
@@ -315,6 +326,7 @@
             color: white;
             font-size: 18px;
             transition: all 0.3s;
+            text-decoration: none;
         }
         
         .social-link:hover {
@@ -342,15 +354,81 @@
             }
             
             .nav-btn {
-                width: 200px;
+                width: 100%;
+                max-width: 250px;
                 justify-content: center;
             }
+            
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header, .hero, .benefits, .testimonials, footer {
+                padding: 20px 15px;
+            }
+            
+            .boutique-name {
+                font-size: 24px;
+            }
+            
+            .hero h1 {
+                font-size: 24px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .cta-btn {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Animation pour le défilement */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-    <button class="btn-retour" onclick="history.back()">← Retour</button>
 <body>
     <div class="container">
+        <!-- Bouton retour -->
+        <button class="btn-retour" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i> Retour
+        </button>
+        
         <!-- Header avec logo et nom -->
         <header>
             <div class="logo-container">
@@ -364,15 +442,15 @@
             </div>
             
             <nav>
-                <button class="nav-btn" onclick="location.href='boutique.html'">
+                <a href="boutique.html" class="nav-btn">
                     <i class="fas fa-shopping-cart"></i> Voir la Boutique
-                </button>
-                <button class="nav-btn" onclick="location.href='#features'">
+                </a>
+                <a href="#features" class="nav-btn">
                     <i class="fas fa-star"></i> Nos Avantages
-                </button>
-                <button class="nav-btn" onclick="location.href='#contact'">
+                </a>
+                <a href="#contact" class="nav-btn">
                     <i class="fas fa-phone"></i> Nous Contacter
-                </button>
+                </a>
             </nav>
         </header>
         
@@ -380,14 +458,14 @@
         <section class="hero">
             <h1>Votre Boutique En Ligne de Confiance</h1>
             <p>Découvrez une expérience d'achat exceptionnelle avec des produits de qualité, une livraison rapide et un service client dédié.</p>
-            <button class="cta-btn" onclick="location.href='boutique.html'">
+            <a href="boutique.html" class="cta-btn">
                 <i class="fas fa-shopping-bag"></i> Commencer mes achats
-            </button>
+            </a>
         </section>
         
         <!-- Section Caractéristiques -->
         <section class="features" id="features">
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-truck"></i>
                 </div>
@@ -395,7 +473,7 @@
                 <p>Recevez vos commandes en 24-48h partout au Togo avec nos services de livraison partenaires.</p>
             </div>
             
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-shield-alt"></i>
                 </div>
@@ -403,7 +481,7 @@
                 <p>Payez en toute sécurité avec T-Money, Flooz ou par WhatsApp sans partager vos informations sensibles.</p>
             </div>
             
-            <div class="feature-card">
+            <div class="feature-card fade-in">
                 <div class="feature-icon">
                     <i class="fas fa-headset"></i>
                 </div>
@@ -416,7 +494,7 @@
         <section class="benefits">
             <h2>Pourquoi choisir notre boutique ?</h2>
             <div class="benefits-list">
-                <div class="benefit-item">
+                <div class="benefit-item fade-in">
                     <div class="benefit-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
@@ -426,7 +504,7 @@
                     </div>
                 </div>
                 
-                <div class="benefit-item">
+                <div class="benefit-item fade-in">
                     <div class="benefit-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
@@ -436,7 +514,7 @@
                     </div>
                 </div>
                 
-                <div class="benefit-item">
+                <div class="benefit-item fade-in">
                     <div class="benefit-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
@@ -446,7 +524,7 @@
                     </div>
                 </div>
                 
-                <div class="benefit-item">
+                <div class="benefit-item fade-in">
                     <div class="benefit-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
@@ -462,17 +540,17 @@
         <section class="testimonials">
             <h2>Ce que disent nos clients</h2>
             <div class="testimonial-cards">
-                <div class="testimonial-card">
+                <div class="testimonial-card fade-in">
                     <p class="testimonial-text">"J'ai commandé un smartphone et je l'ai reçu le lendemain! Service exceptionnel et produit de qualité."</p>
                     <p class="testimonial-author">- Koffi A., Lomé</p>
                 </div>
                 
-                <div class="testimonial-card">
+                <div class="testimonial-card fade-in">
                     <p class="testimonial-text">"Le paiement par Flooz est très pratique et sécurisé. Je recommande vivement cette boutique!"</p>
                     <p class="testimonial-author">- Aïcha M., Kara</p>
                 </div>
                 
-                <div class="testimonial-card">
+                <div class="testimonial-card fade-in">
                     <p class="testimonial-text">"Le service client est très réactif. Ils m'ont aidé à choisir le produit parfait pour mes besoins."</p>
                     <p class="testimonial-author">- Marcel D., Sokodé</p>
                 </div>
@@ -489,7 +567,7 @@
             </div>
             
             <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://wa.me/92871605" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -500,31 +578,62 @@
     </div>
 
     <script>
-        // Animation simple au défilement
+        // Animation au défilement améliorée
         document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll('.feature-card, .benefit-item, .testimonial-card');
+            // Vérifier si la page boutique.html existe
+            function checkBoutiquePage() {
+                // Cette fonction peut être utilisée pour vérifier l'existence de la page
+                // Pour l'instant, nous allons simplement créer un lien fonctionnel
+                console.log("Vérification de la page boutique...");
+            }
             
-            function checkScroll() {
-                animatedElements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
+            // Animation au défilement
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const isVisible = (elementTop < window.innerHeight - 50) && (elementBottom > 0);
                     
-                    if (elementPosition < screenPosition) {
-                        element.style.opacity = 1;
-                        element.style.transform = 'translateY(0)';
+                    if (isVisible) {
+                        element.classList.add('visible');
                     }
                 });
             }
             
-            // Initial state for animation
-            animatedElements.forEach(element => {
-                element.style.opacity = 0;
-                element.style.transform = 'translateY(20px)';
-                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            // Vérifier au chargement
+            checkFade();
+            
+            // Vérifier au défilement
+            window.addEventListener('scroll', checkFade);
+            
+            // Navigation fluide vers les ancres
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
             });
             
-            window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Check on load
+            // Lien WhatsApp fonctionnel
+            const whatsappLink = document.querySelector('a[href*="wa.me"]');
+            if (whatsappLink) {
+                whatsappLink.setAttribute('href', 'https://wa.me/92871605');
+            }
+            
+            // Vérifier la page boutique au chargement
+            checkBoutiquePage();
         });
     </script>
 </body>
