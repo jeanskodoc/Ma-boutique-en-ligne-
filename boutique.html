@@ -88,6 +88,11 @@
             background: rgba(255, 255, 255, 0.3);
         }
         
+        .admin-btn-logout {
+            background: rgba(255, 255, 255, 0.3);
+            display: none;
+        }
+        
         .content {
             padding: 15px;
         }
@@ -289,6 +294,9 @@
             margin: 0 8px;
             font-weight: bold;
             padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
         }
         
         .summary {
@@ -978,6 +986,11 @@
             color: white;
         }
         
+        .inscription-btn-whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+        
         .inscription-btn-cancel {
             background: var(--light);
             color: var(--dark);
@@ -1010,6 +1023,45 @@
         .form-row .form-group {
             flex: 1;
             min-width: 200px;
+        }
+        
+        .selected-products {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .selected-product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .selected-product:last-child {
+            border-bottom: none;
+        }
+        
+        .selected-product-info {
+            flex: 1;
+        }
+        
+        .selected-product-name {
+            font-weight: 600;
+        }
+        
+        .selected-product-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .selected-product-price {
+            font-weight: 600;
+            color: var(--primary);
         }
         
         @keyframes spin {
@@ -1094,6 +1146,9 @@
                 </button>
                 <button class="admin-btn" id="inscription-btn">
                     <i class="fas fa-user-plus"></i> Inscription
+                </button>
+                <button class="admin-btn admin-btn-logout" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
                 </button>
             </div>
         </header>
@@ -1257,39 +1312,6 @@
                         </div>
                     </div>
                     
-                    <div class="form-section">
-                        <div class="form-section-title">
-                            <i class="fas fa-lock"></i> Compte Administrateur
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="admin-username-register">Nom d'utilisateur *</label>
-                                <input type="text" id="admin-username-register" placeholder="Choisissez un nom d'utilisateur" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="admin-password-register">Mot de passe *</label>
-                                <div class="password-container">
-                                    <input type="password" id="admin-password-register" placeholder="Choisissez un mot de passe" required>
-                                    <span class="password-toggle" id="password-toggle-register">
-                                        <i class="fas fa-eye"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="admin-password-confirm">Confirmer le mot de passe *</label>
-                            <div class="password-container">
-                                <input type="password" id="admin-password-confirm" placeholder="Confirmez le mot de passe" required>
-                                <span class="password-toggle" id="password-toggle-confirm">
-                                    <i class="fas fa-eye"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <div class="checkbox-container">
                         <input type="checkbox" id="terms" required>
                         <label for="terms">J'accepte les conditions d'utilisation et la politique de confidentialité *</label>
@@ -1297,12 +1319,16 @@
                 </div>
                 
                 <div class="inscription-buttons">
-                    <button class="inscription-btn inscription-btn-primary" id="register-btn">
-                        <i class="fas fa-check"></i> S'inscrire
+                    <button class="inscription-btn inscription-btn-whatsapp" id="send-whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Envoyer par WhatsApp
                     </button>
                     <button class="inscription-btn inscription-btn-cancel" id="inscription-cancel-btn">
                         <i class="fas fa-times"></i> Annuler
                     </button>
+                </div>
+                
+                <div class="payment-info" style="margin-top: 15px;">
+                    <p><strong>Information :</strong> Votre inscription sera envoyée au service client (92 87 16 05) pour validation. Vous recevrez vos identifiants de connexion par retour.</p>
                 </div>
             </div>
         </div>
@@ -1456,6 +1482,14 @@
                 </div>
             </div>
             
+            <!-- Section des produits sélectionnés -->
+            <div class="selected-products" id="selected-products" style="display: none;">
+                <h3><i class="fas fa-check-circle"></i> Produits sélectionnés</h3>
+                <div id="selected-products-list">
+                    <!-- Les produits sélectionnés seront affichés ici -->
+                </div>
+            </div>
+            
             <div class="section">
                 <h2><i class="fas fa-file-invoice"></i> Récapitulatif de Commande</h2>
                 <div class="summary">
@@ -1586,6 +1620,7 @@
             // Éléments de l'interface admin
             const adminToggle = document.getElementById('admin-toggle');
             const viewStore = document.getElementById('view-store');
+            const logoutBtn = document.getElementById('logout-btn');
             const adminPanel = document.getElementById('admin-panel');
             const clientInterface = document.getElementById('client-interface');
             const addProductBtn = document.getElementById('add-product');
@@ -1598,6 +1633,8 @@
             const imagePreview = document.getElementById('image-preview');
             const adminProductsList = document.getElementById('admin-products-list');
             const productGrid = document.getElementById('product-grid');
+            const selectedProductsSection = document.getElementById('selected-products');
+            const selectedProductsList = document.getElementById('selected-products-list');
             const notification = document.getElementById('notification');
             
             // Éléments de géolocalisation
@@ -1620,7 +1657,7 @@
             const inscriptionBtn = document.getElementById('inscription-btn');
             const inscriptionModal = document.getElementById('inscription-modal');
             const inscriptionCancelBtn = document.getElementById('inscription-cancel-btn');
-            const registerBtn = document.getElementById('register-btn');
+            const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
             const passwordToggleRegister = document.getElementById('password-toggle-register');
             const passwordToggleConfirm = document.getElementById('password-toggle-confirm');
             
@@ -1646,6 +1683,7 @@
             // Initialisation
             renderAdminProducts();
             renderClientProducts();
+            updateLogoutButton();
             
             // Afficher une notification
             function showNotification(message, type) {
@@ -1658,81 +1696,20 @@
                 }, 3000);
             }
             
+            // Mettre à jour l'affichage du bouton de déconnexion
+            function updateLogoutButton() {
+                if (isAuthenticated) {
+                    logoutBtn.style.display = 'block';
+                } else {
+                    logoutBtn.style.display = 'none';
+                }
+            }
+            
             // Toggle pour afficher/masquer le mot de passe
             passwordToggle.addEventListener('click', function() {
                 const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
                 adminPassword.setAttribute('type', type);
                 this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-            });
-            
-            // Toggle pour afficher/masquer le mot de passe d'inscription
-            passwordToggleRegister.addEventListener('click', function() {
-                const passwordField = document.getElementById('admin-password-register');
-                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordField.setAttribute('type', type);
-                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-            });
-            
-            passwordToggleConfirm.addEventListener('click', function() {
-                const passwordField = document.getElementById('admin-password-confirm');
-                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordField.setAttribute('type', type);
-                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-            });
-            
-            // Gestion de l'authentification
-            adminToggle.addEventListener('click', function() {
-                if (isAuthenticated) {
-                    adminPanel.style.display = 'block';
-                    clientInterface.style.display = 'none';
-                } else {
-                    authModal.style.display = 'flex';
-                }
-            });
-            
-            // Annuler l'authentification
-            authCancelBtn.addEventListener('click', function() {
-                authModal.style.display = 'none';
-                adminUsername.value = '';
-                adminPassword.value = '';
-            });
-            
-            // Tentative de connexion
-            loginBtn.addEventListener('click', function() {
-                const username = adminUsername.value.trim();
-                const password = adminPassword.value.trim();
-                
-                if (!username || !password) {
-                    showNotification('Veuillez saisir un identifiant et un mot de passe', 'error');
-                    return;
-                }
-                
-                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                    isAuthenticated = true;
-                    authModal.style.display = 'none';
-                    adminPanel.style.display = 'block';
-                    clientInterface.style.display = 'none';
-                    adminUsername.value = '';
-                    adminPassword.value = '';
-                    showNotification('Connexion réussie!', 'success');
-                } else {
-                    showNotification('Identifiant ou mot de passe incorrect', 'error');
-                }
-            });
-            
-            // Fermer le modal d'authentification en cliquant à l'extérieur
-            window.addEventListener('click', function(event) {
-                if (event.target === authModal) {
-                    authModal.style.display = 'none';
-                    adminUsername.value = '';
-                    adminPassword.value = '';
-                }
-            });
-            
-            // Retour à la boutique
-            viewStore.addEventListener('click', function() {
-                adminPanel.style.display = 'none';
-                clientInterface.style.display = 'block';
             });
             
             // Ouvrir le modal d'inscription
@@ -1785,9 +1762,6 @@
                 document.getElementById('shop-address').value = '';
                 document.getElementById('shop-city').value = '';
                 document.getElementById('shop-country').value = 'Togo';
-                document.getElementById('admin-username-register').value = '';
-                document.getElementById('admin-password-register').value = '';
-                document.getElementById('admin-password-confirm').value = '';
                 document.getElementById('terms').checked = false;
                 
                 // Réinitialiser les catégories
@@ -1797,8 +1771,8 @@
                 updateSelectedCategories();
             }
             
-            // Enregistrement d'une nouvelle boutique
-            registerBtn.addEventListener('click', function() {
+            // Envoi de l'inscription par WhatsApp
+            sendWhatsappBtn.addEventListener('click', function() {
                 // Récupérer les valeurs du formulaire
                 const shopName = document.getElementById('shop-name').value.trim();
                 const shopType = document.getElementById('shop-type').value;
@@ -1810,28 +1784,13 @@
                 const shopAddress = document.getElementById('shop-address').value.trim();
                 const shopCity = document.getElementById('shop-city').value.trim();
                 const shopCountry = document.getElementById('shop-country').value.trim();
-                const adminUsernameRegister = document.getElementById('admin-username-register').value.trim();
-                const adminPasswordRegister = document.getElementById('admin-password-register').value;
-                const adminPasswordConfirm = document.getElementById('admin-password-confirm').value;
                 const termsAccepted = document.getElementById('terms').checked;
                 const selectedCategories = document.getElementById('selected-categories').value;
                 
                 // Validation des champs obligatoires
                 if (!shopName || !shopType || !shopDescription || !managerName || !managerPhone || 
-                    !managerEmail || !shopAddress || !shopCity || !shopCountry || !adminUsernameRegister || 
-                    !adminPasswordRegister || !adminPasswordConfirm) {
+                    !managerEmail || !shopAddress || !shopCity || !shopCountry) {
                     showNotification('Veuillez remplir tous les champs obligatoires', 'error');
-                    return;
-                }
-                
-                // Validation du mot de passe
-                if (adminPasswordRegister !== adminPasswordConfirm) {
-                    showNotification('Les mots de passe ne correspondent pas', 'error');
-                    return;
-                }
-                
-                if (adminPasswordRegister.length < 6) {
-                    showNotification('Le mot de passe doit contenir au moins 6 caractères', 'error');
                     return;
                 }
                 
@@ -1847,42 +1806,72 @@
                     return;
                 }
                 
-                // Enregistrement des informations de la boutique
-                const shopInfo = {
-                    shopName,
-                    shopType,
-                    shopDescription,
-                    managerName,
-                    managerPhone,
-                    managerEmail,
-                    managerWhatsapp,
-                    shopAddress,
-                    shopCity,
-                    shopCountry,
-                    selectedCategories: selectedCategories.split(','),
-                    adminUsername: adminUsernameRegister,
-                    registrationDate: new Date().toISOString()
-                };
+                // Générer le message WhatsApp
+                const whatsappMessage = generateInscriptionMessage(
+                    shopName, shopType, shopDescription, managerName, managerPhone, 
+                    managerEmail, managerWhatsapp, shopAddress, shopCity, shopCountry, 
+                    selectedCategories
+                );
                 
-                // Sauvegarder les informations de la boutique
-                localStorage.setItem('shopInfo', JSON.stringify(shopInfo));
+                // Numéro WhatsApp de destination
+                const whatsappNumber = "92871605"; // Numéro sans indicatif
                 
-                // Mettre à jour les identifiants administrateur
-                ADMIN_USERNAME = adminUsernameRegister;
-                ADMIN_PASSWORD = adminPasswordRegister;
-                localStorage.setItem('adminUsername', ADMIN_USERNAME);
-                localStorage.setItem('adminPassword', ADMIN_PASSWORD);
+                // Encoder le message pour l'URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                
+                // Ouvrir WhatsApp avec le message pré-rempli
+                window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
                 
                 // Fermer le modal d'inscription
                 inscriptionModal.style.display = 'none';
                 clearInscriptionForm();
                 
                 // Afficher un message de succès
-                showNotification('Inscription réussie! Vous pouvez maintenant vous connecter avec vos identifiants.', 'success');
-                
-                // Pré-remplir le formulaire de connexion
-                document.getElementById('admin-username').value = ADMIN_USERNAME;
+                showNotification('Formulaire d\'inscription prêt à être envoyé par WhatsApp!', 'success');
             });
+            
+            // Générer le message d'inscription pour WhatsApp
+            function generateInscriptionMessage(shopName, shopType, shopDescription, managerName, managerPhone, 
+                                              managerEmail, managerWhatsapp, shopAddress, shopCity, shopCountry, 
+                                              selectedCategories) {
+                let message = "📋 *NOUVELLE INSCRIPTION BOUTIQUE* 📋\n\n";
+                
+                message += "🏪 *INFORMATIONS DE LA BOUTIQUE* 🏪\n";
+                message += `📛 Nom: ${shopName}\n`;
+                message += `📊 Type: ${shopType}\n`;
+                message += `📝 Description: ${shopDescription}\n\n`;
+                
+                message += "👤 *INFORMATIONS DU GÉRANT* 👤\n";
+                message += `👨‍💼 Nom: ${managerName}\n`;
+                message += `📞 Téléphone: ${managerPhone}\n`;
+                message += `📧 Email: ${managerEmail}\n`;
+                if (managerWhatsapp) {
+                    message += `💬 WhatsApp: ${managerWhatsapp}\n`;
+                }
+                message += `\n`;
+                
+                message += "📍 *LOCALISATION* 📍\n";
+                message += `🏠 Adresse: ${shopAddress}\n`;
+                message += `🌆 Ville: ${shopCity}\n`;
+                message += `🇹🇬 Pays: ${shopCountry}\n\n`;
+                
+                message += "📦 *CATÉGORIES DE PRODUITS* 📦\n";
+                const categories = selectedCategories.split(',');
+                categories.forEach(cat => {
+                    message += `• ${cat.charAt(0).toUpperCase() + cat.slice(1)}\n`;
+                });
+                message += `\n`;
+                
+                message += "⏰ *DATE D'INSCRIPTION* ⏰\n";
+                message += `📅 ${new Date().toLocaleDateString('fr-FR')}\n`;
+                message += `🕒 ${new Date().toLocaleTimeString('fr-FR')}\n\n`;
+                
+                message += "➖➖➖➖➖➖➖➖➖➖➖➖\n";
+                message += "Merci de traiter cette inscription et de créer un compte administrateur pour cette boutique.\n\n";
+                message += "Cordialement,\nPlateforme de Vente en Ligne";
+                
+                return message;
+            }
             
             // Prévisualisation de l'image
             productImage.addEventListener('change', function(e) {
@@ -1927,6 +1916,71 @@
                 if (event.target === imageZoomModal) {
                     imageZoomModal.style.display = 'none';
                 }
+            });
+            
+            // Gestion de l'authentification
+            adminToggle.addEventListener('click', function() {
+                if (isAuthenticated) {
+                    adminPanel.style.display = 'block';
+                    clientInterface.style.display = 'none';
+                } else {
+                    authModal.style.display = 'flex';
+                }
+            });
+            
+            // Déconnexion
+            logoutBtn.addEventListener('click', function() {
+                isAuthenticated = false;
+                adminPanel.style.display = 'none';
+                clientInterface.style.display = 'block';
+                updateLogoutButton();
+                showNotification('Déconnexion réussie!', 'success');
+            });
+            
+            // Annuler l'authentification
+            authCancelBtn.addEventListener('click', function() {
+                authModal.style.display = 'none';
+                adminUsername.value = '';
+                adminPassword.value = '';
+            });
+            
+            // Tentative de connexion
+            loginBtn.addEventListener('click', function() {
+                const username = adminUsername.value.trim();
+                const password = adminPassword.value.trim();
+                
+                if (!username || !password) {
+                    showNotification('Veuillez saisir un identifiant et un mot de passe', 'error');
+                    return;
+                }
+                
+                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                    isAuthenticated = true;
+                    authModal.style.display = 'none';
+                    adminPanel.style.display = 'block';
+                    clientInterface.style.display = 'none';
+                    adminUsername.value = '';
+                    adminPassword.value = '';
+                    updateLogoutButton();
+                    showNotification('Connexion réussie!', 'success');
+                } else {
+                    showNotification('Identifiant ou mot de passe incorrect', 'error');
+                }
+            });
+            
+            // Fermer le modal d'authentification en cliquant à l'extérieur
+            window.addEventListener('click', function(event) {
+                if (event.target === authModal) {
+                    authModal.style.display = 'none';
+                    adminUsername.value = '';
+                    adminPassword.value = '';
+                }
+            });
+            
+            // Retour à la boutique
+            viewStore.addEventListener('click', function() {
+                adminPanel.style.display = 'none';
+                clientInterface.style.display = 'block';
             });
             
             // Ajout d'un produit
@@ -2164,7 +2218,7 @@
                             <p class="product-description">${product.description}</p>
                             <div class="quantity-control">
                                 <button class="quantity-btn minus" data-id="${product.id}">-</button>
-                                <input type="number" class="quantity-input" id="qty-${product.id}" value="0" min="0" max="${product.stock}" readonly>
+                                <input type="number" class="quantity-input" id="qty-${product.id}" value="0" min="0" max="${product.stock}">
                                 <button class="quantity-btn plus" data-id="${product.id}">+</button>
                             </div>
                         </div>
@@ -2183,6 +2237,7 @@
                         if (parseInt(input.value) < max) {
                             input.value = parseInt(input.value) + 1;
                             updateOrderSummary();
+                            updateSelectedProducts();
                         }
                     });
                 });
@@ -2195,7 +2250,26 @@
                         if (parseInt(input.value) > 0) {
                             input.value = parseInt(input.value) - 1;
                             updateOrderSummary();
+                            updateSelectedProducts();
                         }
+                    });
+                });
+                
+                // Ajouter l'événement de changement direct sur l'input
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', function() {
+                        const productId = this.id.replace('qty-', '');
+                        const max = parseInt(this.getAttribute('max'));
+                        const value = parseInt(this.value) || 0;
+                        
+                        if (value > max) {
+                            this.value = max;
+                        } else if (value < 0) {
+                            this.value = 0;
+                        }
+                        
+                        updateOrderSummary();
+                        updateSelectedProducts();
                     });
                 });
                 
@@ -2225,6 +2299,41 @@
                 });
                 
                 updateOrderSummary();
+                updateSelectedProducts();
+            }
+            
+            // Mise à jour des produits sélectionnés
+            function updateSelectedProducts() {
+                selectedProductsList.innerHTML = '';
+                let hasSelectedProducts = false;
+                
+                products.forEach(product => {
+                    const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                    if (quantity > 0) {
+                        hasSelectedProducts = true;
+                        const productElement = document.createElement('div');
+                        productElement.className = 'selected-product';
+                        
+                        productElement.innerHTML = `
+                            <div class="selected-product-info">
+                                <div class="selected-product-name">${product.name}</div>
+                                <div class="selected-product-price">${(quantity * product.price).toLocaleString()} FCFA</div>
+                            </div>
+                            <div class="selected-product-quantity">
+                                <span>Quantité: ${quantity}</span>
+                            </div>
+                        `;
+                        
+                        selectedProductsList.appendChild(productElement);
+                    }
+                });
+                
+                // Afficher ou masquer la section des produits sélectionnés
+                if (hasSelectedProducts) {
+                    selectedProductsSection.style.display = 'block';
+                } else {
+                    selectedProductsSection.style.display = 'none';
+                }
             }
             
             // Mise à jour du récapitulatif de commande
@@ -2233,7 +2342,7 @@
                 let subtotal = 0;
                 
                 products.forEach(product => {
-                    const quantity = parseInt(document.getElementById(`qty-${product.id}`).value);
+                    const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
                     if (quantity > 0) {
                         totalItems += quantity;
                         subtotal += quantity * product.price;
@@ -2419,7 +2528,7 @@
                 
                 let total = 0;
                 products.forEach(product => {
-                    const quantity = parseInt(document.getElementById(`qty-${product.id}`).value);
+                    const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
                     if (quantity > 0) {
                         orderText += `- ${product.name} (${quantity} x ${product.price.toLocaleString()} FCFA) = ${(quantity * product.price).toLocaleString()} FCFA\n`;
                         total += quantity * product.price;
