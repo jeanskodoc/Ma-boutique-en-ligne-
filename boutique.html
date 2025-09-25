@@ -902,6 +902,116 @@
             justify-content: center;
         }
         
+        /* Modal d'inscription */
+        .inscription-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .inscription-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .inscription-header {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .inscription-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+        
+        .inscription-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .inscription-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .inscription-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .inscription-btn-primary {
+            background: var(--success);
+            color: white;
+        }
+        
+        .inscription-btn-cancel {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .form-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -917,8 +1027,8 @@
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
             
-            .auth-content {
-                max-width: 400px;
+            .auth-content, .inscription-content {
+                max-width: 600px;
             }
             
             .modal-content {
@@ -982,6 +1092,9 @@
                 <button class="admin-btn" id="view-store">
                     <i class="fas fa-shopping-cart"></i> Boutique
                 </button>
+                <button class="admin-btn" id="inscription-btn">
+                    <i class="fas fa-user-plus"></i> Inscription
+                </button>
             </div>
         </header>
         
@@ -1014,6 +1127,180 @@
                         <i class="fas fa-sign-in-alt"></i> Se connecter
                     </button>
                     <button class="auth-btn auth-btn-cancel" id="auth-cancel-btn">
+                        <i class="fas fa-times"></i> Annuler
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal d'inscription -->
+        <div class="inscription-modal" id="inscription-modal">
+            <div class="inscription-content">
+                <div class="inscription-header">
+                    <i class="fas fa-user-plus"></i> Inscription Nouvelle Boutique
+                </div>
+                
+                <div class="inscription-form">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-info-circle"></i> Informations de la Boutique
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shop-name">Nom de la boutique *</label>
+                                <input type="text" id="shop-name" placeholder="Nom de votre boutique" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="shop-type">Type de boutique *</label>
+                                <select id="shop-type" required>
+                                    <option value="">Sélectionnez un type</option>
+                                    <option value="electronique">Électronique</option>
+                                    <option value="vetements">Vêtements</option>
+                                    <option value="alimentation">Alimentation</option>
+                                    <option value="maison">Maison & Décoration</option>
+                                    <option value="sport">Sport & Loisirs</option>
+                                    <option value="beaute">Beauté & Cosmétiques</option>
+                                    <option value="autre">Autre</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shop-description">Description de la boutique *</label>
+                            <textarea id="shop-description" rows="3" placeholder="Décrivez votre boutique et vos produits" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shop-logo">Logo de la boutique</label>
+                            <input type="file" id="shop-logo" accept="image/*">
+                            <div class="image-preview" id="shop-logo-preview">
+                                <span>Aperçu du logo</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-user"></i> Informations du Gérant
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="manager-name">Nom complet *</label>
+                                <input type="text" id="manager-name" placeholder="Nom et prénom" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="manager-phone">Téléphone *</label>
+                                <input type="tel" id="manager-phone" placeholder="Numéro de téléphone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="manager-email">Email *</label>
+                                <input type="email" id="manager-email" placeholder="Adresse email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="manager-whatsapp">WhatsApp</label>
+                                <input type="tel" id="manager-whatsapp" placeholder="Numéro WhatsApp">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-map-marker-alt"></i> Localisation
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shop-address">Adresse *</label>
+                                <textarea id="shop-address" rows="2" placeholder="Adresse complète de la boutique" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shop-city">Ville *</label>
+                                <input type="text" id="shop-city" placeholder="Ville" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="shop-country">Pays *</label>
+                                <input type="text" id="shop-country" placeholder="Pays" value="Togo" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-boxes"></i> Catégories de Produits
+                        </div>
+                        
+                        <div class="form-group">
+                            <p>Sélectionnez les catégories de produits que vous proposez :</p>
+                            <div class="categories">
+                                <button type="button" class="category-btn" data-category="electronique">Électronique</button>
+                                <button type="button" class="category-btn" data-category="vetements">Vêtements</button>
+                                <button type="button" class="category-btn" data-category="alimentation">Alimentation</button>
+                                <button type="button" class="category-btn" data-category="maison">Maison</button>
+                                <button type="button" class="category-btn" data-category="sport">Sport</button>
+                                <button type="button" class="category-btn" data-category="beaute">Beauté</button>
+                                <button type="button" class="category-btn" data-category="livres">Livres</button>
+                                <button type="button" class="category-btn" data-category="jouets">Jouets</button>
+                            </div>
+                            <input type="hidden" id="selected-categories">
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-lock"></i> Compte Administrateur
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="admin-username-register">Nom d'utilisateur *</label>
+                                <input type="text" id="admin-username-register" placeholder="Choisissez un nom d'utilisateur" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="admin-password-register">Mot de passe *</label>
+                                <div class="password-container">
+                                    <input type="password" id="admin-password-register" placeholder="Choisissez un mot de passe" required>
+                                    <span class="password-toggle" id="password-toggle-register">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="admin-password-confirm">Confirmer le mot de passe *</label>
+                            <div class="password-container">
+                                <input type="password" id="admin-password-confirm" placeholder="Confirmez le mot de passe" required>
+                                <span class="password-toggle" id="password-toggle-confirm">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">J'accepte les conditions d'utilisation et la politique de confidentialité *</label>
+                    </div>
+                </div>
+                
+                <div class="inscription-buttons">
+                    <button class="inscription-btn inscription-btn-primary" id="register-btn">
+                        <i class="fas fa-check"></i> S'inscrire
+                    </button>
+                    <button class="inscription-btn inscription-btn-cancel" id="inscription-cancel-btn">
                         <i class="fas fa-times"></i> Annuler
                     </button>
                 </div>
@@ -1329,14 +1616,22 @@
             const authCancelBtn = document.getElementById('auth-cancel-btn');
             const passwordToggle = document.getElementById('password-toggle');
             
+            // Éléments d'inscription
+            const inscriptionBtn = document.getElementById('inscription-btn');
+            const inscriptionModal = document.getElementById('inscription-modal');
+            const inscriptionCancelBtn = document.getElementById('inscription-cancel-btn');
+            const registerBtn = document.getElementById('register-btn');
+            const passwordToggleRegister = document.getElementById('password-toggle-register');
+            const passwordToggleConfirm = document.getElementById('password-toggle-confirm');
+            
             // Éléments de zoom d'image
             const imageZoomModal = document.getElementById('image-zoom-modal');
             const imageZoomClose = document.getElementById('image-zoom-close');
             const zoomedImage = document.getElementById('zoomed-image');
             
             // Identifiants administrateur (à modifier pour la production)
-            const ADMIN_USERNAME = 'admin';
-            const ADMIN_PASSWORD = 'admin123';
+            let ADMIN_USERNAME = localStorage.getItem('adminUsername') || 'admin';
+            let ADMIN_PASSWORD = localStorage.getItem('adminPassword') || 'admin123';
             
             // Données des produits (stockées dans le localStorage)
             let products = JSON.parse(localStorage.getItem('products')) || [];
@@ -1367,6 +1662,21 @@
             passwordToggle.addEventListener('click', function() {
                 const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
                 adminPassword.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+            
+            // Toggle pour afficher/masquer le mot de passe d'inscription
+            passwordToggleRegister.addEventListener('click', function() {
+                const passwordField = document.getElementById('admin-password-register');
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+            
+            passwordToggleConfirm.addEventListener('click', function() {
+                const passwordField = document.getElementById('admin-password-confirm');
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
                 this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
             });
             
@@ -1425,6 +1735,155 @@
                 clientInterface.style.display = 'block';
             });
             
+            // Ouvrir le modal d'inscription
+            inscriptionBtn.addEventListener('click', function() {
+                inscriptionModal.style.display = 'flex';
+            });
+            
+            // Fermer le modal d'inscription
+            inscriptionCancelBtn.addEventListener('click', function() {
+                inscriptionModal.style.display = 'none';
+                clearInscriptionForm();
+            });
+            
+            // Fermer le modal d'inscription en cliquant à l'extérieur
+            window.addEventListener('click', function(event) {
+                if (event.target === inscriptionModal) {
+                    inscriptionModal.style.display = 'none';
+                    clearInscriptionForm();
+                }
+            });
+            
+            // Gestion des catégories sélectionnées dans le formulaire d'inscription
+            document.querySelectorAll('#inscription-modal .category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    updateSelectedCategories();
+                });
+            });
+            
+            // Mettre à jour les catégories sélectionnées
+            function updateSelectedCategories() {
+                const selectedCategories = [];
+                document.querySelectorAll('#inscription-modal .category-btn.active').forEach(btn => {
+                    selectedCategories.push(btn.getAttribute('data-category'));
+                });
+                document.getElementById('selected-categories').value = selectedCategories.join(',');
+            }
+            
+            // Effacer le formulaire d'inscription
+            function clearInscriptionForm() {
+                document.getElementById('shop-name').value = '';
+                document.getElementById('shop-type').value = '';
+                document.getElementById('shop-description').value = '';
+                document.getElementById('shop-logo').value = '';
+                document.getElementById('shop-logo-preview').innerHTML = '<span>Aperçu du logo</span>';
+                document.getElementById('manager-name').value = '';
+                document.getElementById('manager-phone').value = '';
+                document.getElementById('manager-email').value = '';
+                document.getElementById('manager-whatsapp').value = '';
+                document.getElementById('shop-address').value = '';
+                document.getElementById('shop-city').value = '';
+                document.getElementById('shop-country').value = 'Togo';
+                document.getElementById('admin-username-register').value = '';
+                document.getElementById('admin-password-register').value = '';
+                document.getElementById('admin-password-confirm').value = '';
+                document.getElementById('terms').checked = false;
+                
+                // Réinitialiser les catégories
+                document.querySelectorAll('#inscription-modal .category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                updateSelectedCategories();
+            }
+            
+            // Enregistrement d'une nouvelle boutique
+            registerBtn.addEventListener('click', function() {
+                // Récupérer les valeurs du formulaire
+                const shopName = document.getElementById('shop-name').value.trim();
+                const shopType = document.getElementById('shop-type').value;
+                const shopDescription = document.getElementById('shop-description').value.trim();
+                const managerName = document.getElementById('manager-name').value.trim();
+                const managerPhone = document.getElementById('manager-phone').value.trim();
+                const managerEmail = document.getElementById('manager-email').value.trim();
+                const managerWhatsapp = document.getElementById('manager-whatsapp').value.trim();
+                const shopAddress = document.getElementById('shop-address').value.trim();
+                const shopCity = document.getElementById('shop-city').value.trim();
+                const shopCountry = document.getElementById('shop-country').value.trim();
+                const adminUsernameRegister = document.getElementById('admin-username-register').value.trim();
+                const adminPasswordRegister = document.getElementById('admin-password-register').value;
+                const adminPasswordConfirm = document.getElementById('admin-password-confirm').value;
+                const termsAccepted = document.getElementById('terms').checked;
+                const selectedCategories = document.getElementById('selected-categories').value;
+                
+                // Validation des champs obligatoires
+                if (!shopName || !shopType || !shopDescription || !managerName || !managerPhone || 
+                    !managerEmail || !shopAddress || !shopCity || !shopCountry || !adminUsernameRegister || 
+                    !adminPasswordRegister || !adminPasswordConfirm) {
+                    showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+                    return;
+                }
+                
+                // Validation du mot de passe
+                if (adminPasswordRegister !== adminPasswordConfirm) {
+                    showNotification('Les mots de passe ne correspondent pas', 'error');
+                    return;
+                }
+                
+                if (adminPasswordRegister.length < 6) {
+                    showNotification('Le mot de passe doit contenir au moins 6 caractères', 'error');
+                    return;
+                }
+                
+                // Validation des conditions d'utilisation
+                if (!termsAccepted) {
+                    showNotification('Veuillez accepter les conditions d\'utilisation', 'error');
+                    return;
+                }
+                
+                // Validation des catégories sélectionnées
+                if (!selectedCategories) {
+                    showNotification('Veuillez sélectionner au moins une catégorie de produits', 'error');
+                    return;
+                }
+                
+                // Enregistrement des informations de la boutique
+                const shopInfo = {
+                    shopName,
+                    shopType,
+                    shopDescription,
+                    managerName,
+                    managerPhone,
+                    managerEmail,
+                    managerWhatsapp,
+                    shopAddress,
+                    shopCity,
+                    shopCountry,
+                    selectedCategories: selectedCategories.split(','),
+                    adminUsername: adminUsernameRegister,
+                    registrationDate: new Date().toISOString()
+                };
+                
+                // Sauvegarder les informations de la boutique
+                localStorage.setItem('shopInfo', JSON.stringify(shopInfo));
+                
+                // Mettre à jour les identifiants administrateur
+                ADMIN_USERNAME = adminUsernameRegister;
+                ADMIN_PASSWORD = adminPasswordRegister;
+                localStorage.setItem('adminUsername', ADMIN_USERNAME);
+                localStorage.setItem('adminPassword', ADMIN_PASSWORD);
+                
+                // Fermer le modal d'inscription
+                inscriptionModal.style.display = 'none';
+                clearInscriptionForm();
+                
+                // Afficher un message de succès
+                showNotification('Inscription réussie! Vous pouvez maintenant vous connecter avec vos identifiants.', 'success');
+                
+                // Pré-remplir le formulaire de connexion
+                document.getElementById('admin-username').value = ADMIN_USERNAME;
+            });
+            
             // Prévisualisation de l'image
             productImage.addEventListener('change', function(e) {
                 const file = e.target.files[0];
@@ -1436,6 +1895,18 @@
                         imagePreview.querySelector('img').addEventListener('click', function() {
                             openImageZoom(e.target.result);
                         });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Prévisualisation du logo de la boutique
+            document.getElementById('shop-logo').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('shop-logo-preview').innerHTML = `<img src="${e.target.result}" alt="Aperçu du logo">`;
                     };
                     reader.readAsDataURL(file);
                 }
