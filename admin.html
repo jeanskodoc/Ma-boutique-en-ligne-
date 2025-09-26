@@ -411,6 +411,96 @@
             justify-content: center;
         }
         
+        /* Modal d'authentification */
+        .auth-modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .auth-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .auth-header {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .auth-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .auth-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .auth-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .auth-btn-cancel {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
         footer {
             text-align: center;
             padding: 15px;
@@ -455,12 +545,55 @@
             .btn-admin {
                 width: 100%;
             }
+            
+            .auth-content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
     
 <body>
-    <div class="container">
+    <!-- Modal d'authentification -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-content">
+            <div class="auth-header">
+                <i class="fas fa-lock"></i> Connexion Administrateur
+            </div>
+            
+            <div class="auth-form">
+                <div class="form-group">
+                    <label for="admin-username">Identifiant</label>
+                    <input type="text" id="admin-username" placeholder="Votre identifiant" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="admin-password">Mot de passe</label>
+                    <div class="password-container">
+                        <input type="password" id="admin-password" placeholder="Votre mot de passe" required>
+                        <span class="password-toggle" id="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="auth-buttons">
+                <button class="auth-btn auth-btn-primary" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </button>
+                <button class="auth-btn auth-btn-cancel" id="auth-cancel-btn">
+                    <i class="fas fa-times"></i> Annuler
+                </button>
+            </div>
+            
+            <div style="margin-top: 15px; font-size: 12px; color: #666;">
+                <p>Identifiants par défaut : admin / admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="main-container" style="display: none;">
         <button class="btn-retour" onclick="history.back()">
             <i class="fas fa-arrow-left"></i> Retour
         </button>
@@ -604,6 +737,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Éléments d'authentification
+            const authModal = document.getElementById('auth-modal');
+            const mainContainer = document.getElementById('main-container');
+            const adminUsername = document.getElementById('admin-username');
+            const adminPassword = document.getElementById('admin-password');
+            const loginBtn = document.getElementById('login-btn');
+            const authCancelBtn = document.getElementById('auth-cancel-btn');
+            const passwordToggle = document.getElementById('password-toggle');
+            
             // Éléments de l'interface admin
             const viewStore = document.getElementById('view-store');
             const logoutBtn = document.getElementById('logout-btn');
@@ -623,11 +765,42 @@
             const imageZoomClose = document.getElementById('image-zoom-close');
             const zoomedImage = document.getElementById('zoomed-image');
             
+            // Identifiants administrateur
+            const ADMIN_USERNAME = 'admin';
+            const ADMIN_PASSWORD = 'admin123';
+            
             // Données des produits (stockées dans le localStorage)
             let products = JSON.parse(localStorage.getItem('products')) || [];
             
-            // Initialisation
-            renderAdminProducts();
+            // État d'authentification
+            let isAuthenticated = false;
+            
+            // Vérifier l'authentification au chargement
+            checkAuthentication();
+            
+            // Fonction pour vérifier l'authentification
+            function checkAuthentication() {
+                const savedAuth = localStorage.getItem('adminAuthenticated');
+                if (savedAuth === 'true') {
+                    isAuthenticated = true;
+                    showAdminInterface();
+                } else {
+                    showAuthModal();
+                }
+            }
+            
+            // Afficher le modal d'authentification
+            function showAuthModal() {
+                authModal.style.display = 'flex';
+                mainContainer.style.display = 'none';
+            }
+            
+            // Afficher l'interface admin
+            function showAdminInterface() {
+                authModal.style.display = 'none';
+                mainContainer.style.display = 'block';
+                renderAdminProducts();
+            }
             
             // Afficher une notification
             function showNotification(message, type) {
@@ -640,6 +813,49 @@
                 }, 3000);
             }
             
+            // Toggle pour afficher/masquer le mot de passe
+            passwordToggle.addEventListener('click', function() {
+                const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                adminPassword.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+            
+            // Tentative de connexion
+            loginBtn.addEventListener('click', function() {
+                const username = adminUsername.value.trim();
+                const password = adminPassword.value.trim();
+                
+                if (!username || !password) {
+                    showNotification('Veuillez saisir un identifiant et un mot de passe', 'error');
+                    return;
+                }
+                
+                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                    isAuthenticated = true;
+                    localStorage.setItem('adminAuthenticated', 'true');
+                    showAdminInterface();
+                    showNotification('Connexion réussie!', 'success');
+                    
+                    // Réinitialiser les champs
+                    adminUsername.value = '';
+                    adminPassword.value = '';
+                } else {
+                    showNotification('Identifiant ou mot de passe incorrect', 'error');
+                }
+            });
+            
+            // Annuler l'authentification
+            authCancelBtn.addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+            
+            // Fermer le modal d'authentification en cliquant à l'extérieur
+            window.addEventListener('click', function(event) {
+                if (event.target === authModal) {
+                    window.location.href = 'index.html';
+                }
+            });
+            
             // Aller à la boutique
             viewStore.addEventListener('click', function() {
                 window.location.href = 'boutique.html';
@@ -648,7 +864,10 @@
             // Déconnexion
             logoutBtn.addEventListener('click', function() {
                 if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-                    window.location.href = 'index.html';
+                    isAuthenticated = false;
+                    localStorage.removeItem('adminAuthenticated');
+                    showAuthModal();
+                    showNotification('Déconnexion réussie!', 'success');
                 }
             });
             
@@ -687,6 +906,11 @@
             
             // Ajout d'un produit
             addProductBtn.addEventListener('click', function() {
+                if (!isAuthenticated) {
+                    showNotification('Veuillez vous reconnecter', 'error');
+                    return;
+                }
+                
                 const name = document.getElementById('product-name').value.trim();
                 const price = document.getElementById('product-price').value;
                 const category = document.getElementById('product-category').value;
@@ -748,12 +972,22 @@
             
             // Enregistrer les produits
             saveProductsBtn.addEventListener('click', function() {
+                if (!isAuthenticated) {
+                    showNotification('Veuillez vous reconnecter', 'error');
+                    return;
+                }
+                
                 localStorage.setItem('products', JSON.stringify(products));
                 showNotification('Produits sauvegardés avec succès!', 'success');
             });
             
             // Exporter les produits en JSON
             exportProductsBtn.addEventListener('click', function() {
+                if (!isAuthenticated) {
+                    showNotification('Veuillez vous reconnecter', 'error');
+                    return;
+                }
+                
                 const dataStr = JSON.stringify(products, null, 2);
                 const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
                 
@@ -769,6 +1003,11 @@
             
             // Importer un catalogue
             importBtn.addEventListener('click', function() {
+                if (!isAuthenticated) {
+                    showNotification('Veuillez vous reconnecter', 'error');
+                    return;
+                }
+                
                 const file = importCatalog.files[0];
                 if (!file) {
                     showNotification('Veuillez sélectionner un fichier', 'error');
@@ -835,6 +1074,11 @@
                 // Ajouter les événements pour les boutons modifier et supprimer
                 document.querySelectorAll('.btn-edit').forEach(btn => {
                     btn.addEventListener('click', function() {
+                        if (!isAuthenticated) {
+                            showNotification('Veuillez vous reconnecter', 'error');
+                            return;
+                        }
+                        
                         const productId = parseInt(this.getAttribute('data-id'));
                         editProduct(productId);
                     });
@@ -842,6 +1086,11 @@
                 
                 document.querySelectorAll('.btn-delete').forEach(btn => {
                     btn.addEventListener('click', function() {
+                        if (!isAuthenticated) {
+                            showNotification('Veuillez vous reconnecter', 'error');
+                            return;
+                        }
+                        
                         const productId = parseInt(this.getAttribute('data-id'));
                         deleteProduct(productId);
                     });
