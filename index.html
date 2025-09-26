@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique En Ligne - Accueil</title>
+    <title>Plateforme de Vente en Ligne - Accueil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -13,6 +13,9 @@
             --light: #ecf0f1;
             --dark: #2c3e50;
             --success: #2ecc71;
+            --whatsapp: #25D366;
+            --tmoney: #FF6B00;
+            --flooz: #00A650;
         }
         
         * {
@@ -27,7 +30,7 @@
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
-            padding: 0; /* Suppression du padding pour éviter les problèmes de défilement */
+            padding: 0;
         }
         
         .container {
@@ -89,6 +92,14 @@
             font-size: 40px;
             margin-right: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
         
         .boutique-name {
@@ -102,6 +113,34 @@
             font-size: 18px;
             color: var(--primary);
             margin-top: 5px;
+        }
+        
+        .admin-info {
+            background: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--primary);
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .admin-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .admin-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .admin-detail i {
+            color: var(--primary);
+            width: 20px;
         }
         
         /* Navigation */
@@ -133,6 +172,21 @@
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-btn.whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+        
+        .nav-btn.tmoney {
+            background: var(--tmoney);
+            color: white;
+        }
+        
+        .nav-btn.admin {
+            background: var(--secondary);
+            color: white;
         }
         
         /* Hero Section */
@@ -172,6 +226,7 @@
             align-items: center;
             gap: 10px;
             text-decoration: none;
+            margin: 5px;
         }
         
         .cta-btn:hover {
@@ -179,6 +234,16 @@
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-btn.whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+        
+        .cta-btn.tmoney {
+            background: var(--tmoney);
+            color: white;
         }
         
         /* Features Section */
@@ -254,6 +319,56 @@
             font-size: 24px;
             margin-top: 5px;
             flex-shrink: 0;
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .payment-methods h2 {
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .payment-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .payment-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .payment-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .payment-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .payment-card.whatsapp .payment-icon {
+            color: var(--whatsapp);
+        }
+        
+        .payment-card.tmoney .payment-icon {
+            color: var(--tmoney);
+        }
+        
+        .payment-card.flooz .payment-icon {
+            color: var(--flooz);
         }
         
         /* Testimonials */
@@ -335,6 +450,12 @@
         }
         
         /* Responsive Design */
+        @media (min-width: 768px) {
+            .admin-details {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
         @media (max-width: 768px) {
             .boutique-name {
                 font-size: 28px;
@@ -377,6 +498,10 @@
                 grid-template-columns: 1fr;
             }
             
+            .payment-cards {
+                grid-template-columns: 1fr;
+            }
+            
             .testimonial-cards {
                 grid-template-columns: 1fr;
             }
@@ -387,7 +512,7 @@
                 padding: 10px;
             }
             
-            header, .hero, .benefits, .testimonials, footer {
+            header, .hero, .benefits, .payment-methods, .testimonials, footer {
                 padding: 20px 15px;
             }
             
@@ -406,6 +531,8 @@
             .cta-btn {
                 padding: 12px 20px;
                 font-size: 16px;
+                width: 100%;
+                margin: 5px 0;
             }
         }
         
@@ -420,6 +547,27 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        /* Logo upload section */
+        .logo-upload {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .logo-upload-btn {
+            padding: 8px 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .logo-upload-btn:hover {
+            background: var(--secondary);
+        }
     </style>
 </head>
 <body>
@@ -432,12 +580,43 @@
         <!-- Header avec logo et nom -->
         <header>
             <div class="logo-container">
-                <div class="logo">
-                    <i class="fas fa-store"></i>
+                <div class="logo" id="logo-container">
+                    <i class="fas fa-store" id="default-logo"></i>
+                    <img id="custom-logo" style="display: none;" alt="Logo de la boutique">
                 </div>
                 <div>
-                    <h1 class="boutique-name">Boutique En Ligne</h1>
-                    <p class="owner">Propriétaire: <strong>JEAN-KOLA</strong></p>
+                    <h1 class="boutique-name">Plateforme de Vente en Ligne</h1>
+                    <p class="owner">Administrateur: <strong>Kossi AGBELENKO</strong></p>
+                </div>
+            </div>
+            
+            <!-- Upload de logo -->
+            <div class="logo-upload">
+                <input type="file" id="logo-upload" accept="image/*" style="display: none;">
+                <button class="logo-upload-btn" onclick="document.getElementById('logo-upload').click()">
+                    <i class="fas fa-upload"></i> Changer le logo
+                </button>
+            </div>
+            
+            <!-- Informations de l'administrateur -->
+            <div class="admin-info">
+                <div class="admin-details">
+                    <div class="admin-detail">
+                        <i class="fas fa-user"></i>
+                        <span><strong>Nom:</strong> Kossi AGBELENKO</span>
+                    </div>
+                    <div class="admin-detail">
+                        <i class="fas fa-phone"></i>
+                        <span><strong>WhatsApp:</strong> +228 92 87 16 05</span>
+                    </div>
+                    <div class="admin-detail">
+                        <i class="fas fa-envelope"></i>
+                        <span><strong>Email:</strong> agbelenko.kossi@gmail.com</span>
+                    </div>
+                    <div class="admin-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span><strong>Localisation:</strong> Lomé, Togo</span>
+                    </div>
                 </div>
             </div>
             
@@ -445,62 +624,103 @@
                 <a href="boutique.html" class="nav-btn">
                     <i class="fas fa-shopping-cart"></i> Voir la Boutique
                 </a>
-                <a href="#features" class="nav-btn">
-                    <i class="fas fa-star"></i> Nos Avantages
+                <a href="admin.html" class="nav-btn admin">
+                    <i class="fas fa-cog"></i> Espace Admin
                 </a>
-                <a href="#contact" class="nav-btn">
-                    <i class="fas fa-phone"></i> Nous Contacter
+                <a href="https://wa.me/92871605" class="nav-btn whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="#payment" class="nav-btn tmoney">
+                    <i class="fas fa-money-bill-wave"></i> Paiements
                 </a>
             </nav>
         </header>
         
         <!-- Section Hero -->
         <section class="hero">
-            <h1>Votre Boutique En Ligne de Confiance</h1>
-            <p>Découvrez une expérience d'achat exceptionnelle avec des produits de qualité, une livraison rapide et un service client dédié.</p>
-            <a href="boutique.html" class="cta-btn">
-                <i class="fas fa-shopping-bag"></i> Commencer mes achats
-            </a>
+            <h1>Votre Plateforme de Vente Complète</h1>
+            <p>Gérez votre boutique en ligne, vendez vos produits et acceptez les paiements mobiles en toute simplicité. Solution tout-en-un pour commerçants et clients.</p>
+            <div>
+                <a href="boutique.html" class="cta-btn">
+                    <i class="fas fa-shopping-bag"></i> Voir les Produits
+                </a>
+                <a href="admin.html" class="cta-btn">
+                    <i class="fas fa-cog"></i> Espace Admin
+                </a>
+                <a href="https://wa.me/92871605" class="cta-btn whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Commander via WhatsApp
+                </a>
+            </div>
         </section>
         
         <!-- Section Caractéristiques -->
         <section class="features" id="features">
             <div class="feature-card fade-in">
                 <div class="feature-icon">
-                    <i class="fas fa-truck"></i>
+                    <i class="fas fa-store"></i>
                 </div>
-                <h3>Livraison Rapide</h3>
-                <p>Recevez vos commandes en 24-48h partout au Togo avec nos services de livraison partenaires.</p>
+                <h3>Boutique Complète</h3>
+                <p>Interface complète de gestion de produits, stocks, catégories et commandes avec système administrateur intégré.</p>
             </div>
             
             <div class="feature-card fade-in">
                 <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
+                    <i class="fas fa-mobile-alt"></i>
                 </div>
-                <h3>Paiement Sécurisé</h3>
-                <p>Payez en toute sécurité avec T-Money, Flooz ou par WhatsApp sans partager vos informations sensibles.</p>
+                <h3>Paiements Mobiles</h3>
+                <p>Acceptez les paiements par T-Money/Yas et Flooz avec système de confirmation automatique des transactions.</p>
             </div>
             
             <div class="feature-card fade-in">
                 <div class="feature-icon">
-                    <i class="fas fa-headset"></i>
+                    <i class="fas fa-shipping-fast"></i>
                 </div>
-                <h3>Support Client</h3>
-                <p>Notre équipe est disponible 7j/7 pour répondre à vos questions et résoudre vos problèmes.</p>
+                <h3>Livraison Optimisée</h3>
+                <p>Système de géolocalisation intégré pour une livraison précise et suivi en temps réel des commandes.</p>
+            </div>
+        </section>
+        
+        <!-- Section Méthodes de Paiement -->
+        <section class="payment-methods" id="payment">
+            <h2>Méthodes de Paiement Acceptées</h2>
+            <div class="payment-cards">
+                <div class="payment-card fade-in whatsapp">
+                    <div class="payment-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p>Commandez et payez directement via WhatsApp avec notre assistant automatique.</p>
+                </div>
+                
+                <div class="payment-card fade-in tmoney">
+                    <div class="payment-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>T-Money/Yas</h3>
+                    <p>Transfert sécurisé vers le numéro 92 87 16 05 avec confirmation immédiate.</p>
+                </div>
+                
+                <div class="payment-card fade-in flooz">
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Flooz</h3>
+                    <p>Paiement mobile simple et rapide avec notre système Flooz intégré.</p>
+                </div>
             </div>
         </section>
         
         <!-- Section Avantages -->
         <section class="benefits">
-            <h2>Pourquoi choisir notre boutique ?</h2>
+            <h2>Fonctionnalités Principales</h2>
             <div class="benefits-list">
                 <div class="benefit-item fade-in">
                     <div class="benefit-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div>
-                        <h3>Produits de Qualité</h3>
-                        <p>Tous nos articles sont soigneusement sélectionnés et testés pour garantir leur qualité.</p>
+                        <h3>Gestion des Produits</h3>
+                        <p>Ajoutez, modifiez et gérez votre catalogue produits avec images, prix et stocks.</p>
                     </div>
                 </div>
                 
@@ -509,8 +729,8 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div>
-                        <h3>Prix Compétitifs</h3>
-                        <p>Nous proposons les meilleurs prix du marché sans compromis sur la qualité.</p>
+                        <h3>Interface Responsive</h3>
+                        <p>Site optimisé pour mobile, tablette et ordinateur avec expérience utilisateur fluide.</p>
                     </div>
                 </div>
                 
@@ -519,8 +739,8 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div>
-                        <h3>Retours Faciles</h3>
-                        <p>Vous n'êtes pas satisfait? Nous facilitons les retours et remboursements sous 14 jours.</p>
+                        <h3>Sécurité des Données</h3>
+                        <p>Toutes les données sont stockées localement avec sauvegarde automatique.</p>
                     </div>
                 </div>
                 
@@ -529,8 +749,8 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div>
-                        <h3>Choix Varié</h3>
-                        <p>Des centaines de produits dans différentes catégories pour répondre à tous vos besoins.</p>
+                        <h3>Rapports Automatisés</h3>
+                        <p>Générez des rapports de vente et exportez vos données en format JSON.</p>
                     </div>
                 </div>
             </div>
@@ -538,21 +758,21 @@
         
         <!-- Témoignages -->
         <section class="testimonials">
-            <h2>Ce que disent nos clients</h2>
+            <h2>Témoignages de Commerçants</h2>
             <div class="testimonial-cards">
                 <div class="testimonial-card fade-in">
-                    <p class="testimonial-text">"J'ai commandé un smartphone et je l'ai reçu le lendemain! Service exceptionnel et produit de qualité."</p>
-                    <p class="testimonial-author">- Koffi A., Lomé</p>
+                    <p class="testimonial-text">"Cette plateforme m'a permis de digitaliser ma boutique en quelques heures. La gestion des stocks est incroyablement simple!"</p>
+                    <p class="testimonial-author">- Sarah M., Boutique de Mode</p>
                 </div>
                 
                 <div class="testimonial-card fade-in">
-                    <p class="testimonial-text">"Le paiement par Flooz est très pratique et sécurisé. Je recommande vivement cette boutique!"</p>
-                    <p class="testimonial-author">- Aïcha M., Kara</p>
+                    <p class="testimonial-text">"Les paiements mobiles ont boosté mes ventes de 40%. Mes clients adorent la simplicité du système."</p>
+                    <p class="testimonial-author">- Jean K., Électronique</p>
                 </div>
                 
                 <div class="testimonial-card fade-in">
-                    <p class="testimonial-text">"Le service client est très réactif. Ils m'ont aidé à choisir le produit parfait pour mes besoins."</p>
-                    <p class="testimonial-author">- Marcel D., Sokodé</p>
+                    <p class="testimonial-text">"L'interface admin est très intuitive. Je peux gérer mes commandes même depuis mon smartphone."</p>
+                    <p class="testimonial-author">- Aïcha B., Produits Beauté</p>
                 </div>
             </div>
         </section>
@@ -560,32 +780,56 @@
         <!-- Footer -->
         <footer id="contact">
             <div class="contact-info">
-                <h3>Contactez-nous</h3>
+                <h3>Contact & Support</h3>
                 <p><i class="fas fa-phone"></i> Service Client: 92 87 16 05</p>
-                <p><i class="fas fa-envelope"></i> Email: jeanskodoc22@gmail.com</p>
+                <p><i class="fas fa-envelope"></i> Email: agbelenko.kossi@gmail.com</p>
                 <p><i class="fas fa-map-marker-alt"></i> Lomé, Togo</p>
+                <p><i class="fas fa-user-shield"></i> Administrateur: Kossi AGBELENKO</p>
             </div>
             
             <div class="social-links">
                 <a href="https://wa.me/92871605" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:agbelenko.kossi@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                <a href="tel:92871605" class="social-link"><i class="fas fa-phone"></i></a>
+                <a href="boutique.html" class="social-link"><i class="fas fa-store"></i></a>
             </div>
             
-            <p>&copy; 2025 Boutique En Ligne - Tous droits réservés</p>
+            <p>&copy; 2025 Plateforme de Vente en Ligne - Développé par Kossi AGBELENKO</p>
         </footer>
     </div>
 
     <script>
-        // Animation au défilement améliorée
         document.addEventListener('DOMContentLoaded', function() {
-            // Vérifier si la page boutique.html existe
-            function checkBoutiquePage() {
-                // Cette fonction peut être utilisée pour vérifier l'existence de la page
-                // Pour l'instant, nous allons simplement créer un lien fonctionnel
-                console.log("Vérification de la page boutique...");
+            // Gestion du logo personnalisé
+            const logoUpload = document.getElementById('logo-upload');
+            const customLogo = document.getElementById('custom-logo');
+            const defaultLogo = document.getElementById('default-logo');
+            
+            // Charger le logo sauvegardé
+            const savedLogo = localStorage.getItem('boutiqueLogo');
+            if (savedLogo) {
+                customLogo.src = savedLogo;
+                customLogo.style.display = 'block';
+                defaultLogo.style.display = 'none';
             }
+            
+            logoUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        customLogo.src = e.target.result;
+                        customLogo.style.display = 'block';
+                        defaultLogo.style.display = 'none';
+                        
+                        // Sauvegarder le logo dans le localStorage
+                        localStorage.setItem('boutiqueLogo', e.target.result);
+                        
+                        showNotification('Logo mis à jour avec succès!', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
             
             // Animation au défilement
             const fadeElements = document.querySelectorAll('.fade-in');
@@ -626,14 +870,61 @@
                 });
             });
             
-            // Lien WhatsApp fonctionnel
-            const whatsappLink = document.querySelector('a[href*="wa.me"]');
-            if (whatsappLink) {
-                whatsappLink.setAttribute('href', 'https://wa.me/92871605');
+            // Vérifier l'existence des pages
+            function checkPages() {
+                // Vérifier si la page boutique existe
+                fetch('boutique.html')
+                    .then(response => {
+                        if (!response.ok) {
+                            console.warn('La page boutique.html n\'existe pas encore');
+                        }
+                    })
+                    .catch(error => {
+                        console.warn('La page boutique.html n\'existe pas encore');
+                    });
+                    
+                // Vérifier si la page admin existe
+                fetch('admin.html')
+                    .then(response => {
+                        if (!response.ok) {
+                            console.warn('La page admin.html n\'existe pas encore');
+                        }
+                    })
+                    .catch(error => {
+                        console.warn('La page admin.html n\'existe pas encore');
+                    });
             }
             
-            // Vérifier la page boutique au chargement
-            checkBoutiquePage();
+            // Fonction pour afficher les notifications
+            function showNotification(message, type) {
+                // Créer une notification temporaire
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    background: ${type === 'success' ? '#2ecc71' : '#e74c3c'};
+                    color: white;
+                    border-radius: 5px;
+                    z-index: 1000;
+                    font-weight: 600;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    transition: all 0.3s;
+                `;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Vérifier les pages au chargement
+            checkPages();
         });
     </script>
 </body>
