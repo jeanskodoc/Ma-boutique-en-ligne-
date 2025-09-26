@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Boutique en Ligne - Commander vos produits</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --whatsapp: #25D366;
+            --tmoney: #FF6B00;
+            --flooz: #00A650;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 10px;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+        
+        .description {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .admin-info {
+            background: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .admin-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .admin-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .admin-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .admin-detail i {
+            color: var(--primary);
+            width: 20px;
+        }
+        
+        .content {
+            padding: 15px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        
+        h2 i {
+            margin-right: 8px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 14px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-btn {
+            padding: 10px 15px;
+            background: var(--light);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary);
+        }
+        
+        .product-image {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .product-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .electronique { background: linear-gradient(45deg, #3498db, #2c3e50); }
+        .vetements { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+        .alimentation { background: linear-gradient(45deg, #2ecc71, #27ae60); }
+        .maison { background: linear-gradient(45deg, #f39c12, #d35400); }
+        .sport { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        
+        .product-info {
+            padding: 12px;
+        }
+        
+        .product-title {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+        
+        .product-description {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 12px;
+            height: 50px;
+            overflow: hidden;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+        
+        .quantity-btn {
+            background: var(--light);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 8px;
+            font-weight: bold;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .summary {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ddd;
+            font-size: 15px;
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid #ddd;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+        
+        .btn-tmoney {
+            background: var(--tmoney);
+            color: white;
+        }
+        
+        .btn-flooz {
+            background: var(--flooz);
+            color: white;
+        }
+        
+        .btn-location {
+            background: var(--warning);
+            color: white;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 15px;
+        }
+        
+        .payment-info {
+            background: #fff8e1;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--warning);
+            font-size: 14px;
+        }
+        
+        .payment-info p {
+            margin-bottom: 8px;
+        }
+        
+        .payment-info ul {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .modal-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .modal-btn-tmoney {
+            background: var(--tmoney);
+            color: white;
+        }
+        
+        .modal-btn-flooz {
+            background: var(--flooz);
+            color: white;
+        }
+        
+        .modal-btn-cancel {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .app-download {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f0f7ff;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .app-download a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .app-download a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: var(--light);
+            color: var(--dark);
+            font-size: 13px;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .checkbox-container input {
+            width: auto;
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+        
+        .currency {
+            font-size: 0.9em;
+            margin-left: 2px;
+        }
+        
+        .payment-steps {
+            text-align: left;
+            margin-top: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .payment-steps ol {
+            padding-left: 20px;
+        }
+        
+        .payment-steps li {
+            margin-bottom: 8px;
+        }
+        
+        .import-section {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f0f7ff;
+            border-radius: 8px;
+        }
+        
+        .btn-admin {
+            padding: 10px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            background: var(--primary);
+            color: white;
+            margin-top: 10px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            left: 15px;
+            padding: 12px 15px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 600;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s, transform 0.3s;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.success {
+            background: var(--success);
+        }
+        
+        .notification.error {
+            background: var(--danger);
+        }
+        
+        .location-section {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f0f7ff;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .map-container {
+            height: 200px;
+            margin-top: 12px;
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .location-details {
+            margin-top: 12px;
+            padding: 8px;
+            background: white;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+        
+        .location-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .location-loading i {
+            margin-right: 8px;
+            animation: spin 1s linear infinite;
+        }
+        
+        .selected-products {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .selected-product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .selected-product:last-child {
+            border-bottom: none;
+        }
+        
+        .selected-product-info {
+            flex: 1;
+        }
+        
+        .selected-product-name {
+            font-weight: 600;
+        }
+        
+        .selected-product-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .selected-product-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .image-zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .image-zoom-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .image-zoom-content img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .image-zoom-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-retour {
+            padding: 8px 14px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        
+        .btn-retour:active {
+            background-color: #e0e0e0;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .admin-details {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: row;
+            }
+        }
+
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 20px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        .scrollable {
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+    
+<body>
+    <div class="container">
+        <button class="btn-retour" onclick="history.back()">← Retour</button>
+        
+        <header>
+            <h1><i class="fas fa-store"></i> Boutique en Ligne</h1>
+            <p class="description">Commandez vos produits en toute simplicité</p>
+        </header>
+        
+        <!-- Informations de l'administrateur -->
+        <div class="admin-info">
+            <h3><i class="fas fa-user-shield"></i> Informations du Vendeur</h3>
+            <div class="admin-details">
+                <div class="admin-detail">
+                    <i class="fas fa-user"></i>
+                    <span><strong>Nom:</strong> Kossi AGBELENKO</span>
+                </div>
+                <div class="admin-detail">
+                    <i class="fas fa-phone"></i>
+                    <span><strong>WhatsApp:</strong> +228 92 87 16 05</span>
+                </div>
+                <div class="admin-detail">
+                    <i class="fas fa-envelope"></i>
+                    <span><strong>Email:</strong> agbelenko.kossi@gmail.com</span>
+                </div>
+                <div class="admin-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span><strong>Localisation:</strong> Lomé, Togo</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Section d'importation -->
+            <div class="import-section">
+                <h3><i class="fas fa-file-import"></i> Importer un catalogue</h3>
+                <p>Si vous avez reçu un fichier catalogue (.json), importez-le pour voir les produits disponibles.</p>
+                <div class="form-group">
+                    <input type="file" id="import-catalog" accept=".json">
+                </div>
+                <button class="btn-admin" id="import-btn">
+                    <i class="fas fa-upload"></i> Importer le catalogue
+                </button>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-user"></i> Informations Personnelles</h2>
+                <div class="form-group">
+                    <label for="nom">Nom et Prénom *</label>
+                    <input type="text" id="nom" placeholder="Votre nom complet" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="whatsapp">Numéro WhatsApp *</label>
+                    <input type="tel" id="whatsapp" placeholder="Votre numéro WhatsApp" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adresse">Adresse de Livraison *</label>
+                    <textarea id="adresse" rows="3" placeholder="Votre adresse complète pour la livraison" required></textarea>
+                </div>
+                
+                <div class="location-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> Localisation</h3>
+                    <p>Pour une livraison précise, partagez votre position actuelle</p>
+                    <button class="btn-location" id="get-location">
+                        <i class="fas fa-location-arrow"></i> Partager ma position
+                    </button>
+                    
+                    <div id="location-loading" class="location-loading" style="display: none;">
+                        <i class="fas fa-spinner"></i> Localisation en cours...
+                    </div>
+                    
+                    <div id="map-container" class="map-container">
+                        <!-- La carte Google Maps sera affichée ici -->
+                    </div>
+                    
+                    <div id="location-details" class="location-details" style="display: none;">
+                        <p><strong>Adresse détectée:</strong> <span id="detected-address"></span></p>
+                        <p><strong>Coordonnées:</strong> <span id="coordinates"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-shopping-cart"></i> Sélection des Articles</h2>
+                <p>Choisissez une catégorie :</p>
+                
+                <div class="categories scrollable">
+                    <button class="category-btn active" data-category="all">Tous</button>
+                    <button class="category-btn" data-category="electronique">Électronique</button>
+                    <button class="category-btn" data-category="vetements">Vêtements</button>
+                    <button class="category-btn" data-category="alimentation">Alimentation</button>
+                    <button class="category-btn" data-category="maison">Maison</button>
+                    <button class="category-btn" data-category="sport">Sport</button>
+                </div>
+                
+                <div class="product-grid" id="product-grid">
+                    <!-- Les produits seront ajoutés ici dynamiquement -->
+                </div>
+            </div>
+            
+            <!-- Section des produits sélectionnés -->
+            <div class="selected-products" id="selected-products" style="display: none;">
+                <h3><i class="fas fa-check-circle"></i> Produits sélectionnés</h3>
+                <div id="selected-products-list">
+                    <!-- Les produits sélectionnés seront affichés ici -->
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-file-invoice"></i> Récapitulatif de Commande</h2>
+                <div class="summary">
+                    <div class="summary-item">
+                        <span>Articles sélectionnés:</span>
+                        <span id="articles-count">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Sous-total:</span>
+                        <span id="subtotal">0 <span class="currency">FCFA</span></span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Frais de livraison:</span>
+                        <span>2 000 <span class="currency">FCFA</span></span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total:</span>
+                        <span id="total">2 000 <span class="currency">FCFA</span></span>
+                    </div>
+                </div>
+                
+                <div class="payment-info">
+                    <p><strong>Options de paiement:</strong></p>
+                    <ul>
+                        <li><strong>T-Money/Yas:</strong> Transferez le montant au numéro <strong>92 87 16 05</strong></li>
+                        <li><strong>Flooz:</strong> Transferez le montant au numéro <strong>92 87 16 05</strong></li>
+                    </ul>
+                    <p>Votre commande sera traitée dès réception du paiement.</p>
+                    
+                    <div class="app-download">
+                        <p>Téléchargez l'application T-Money/Yas: 
+                            <a href="https://play.google.com/store/apps/details?id=tg.togocom.tmoney" target="_blank">
+                                <i class="fab fa-google-play"></i> Google Play Store
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-paper-plane"></i> Envoyer la Commande</h2>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="confirm-location">
+                    <label for="confirm-location">J'autorise l'utilisation de ma position pour la livraison</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="confirm" required>
+                    <label for="confirm">Je confirme que les informations ci-dessus sont correctes</label>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-whatsapp" id="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Envoyer par WhatsApp
+                    </button>
+                    
+                    <button class="btn btn-tmoney" id="tmoney-btn">
+                        <i class="fas fa-money-bill-wave"></i> Payer avec T-Money/Yas
+                    </button>
+                    
+                    <button class="btn btn-flooz" id="flooz-btn">
+                        <i class="fas fa-mobile-alt"></i> Payer avec Flooz
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 - Service Client: 92 87 16 05 | Livraison sous 24-48h</p>
+        </footer>
+    </div>
+
+    <!-- Modal de Paiement -->
+    <div class="payment-modal" id="payment-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-money-bill-wave"></i> Procéder au Paiement
+            </div>
+            
+            <p>Montant à payer: <strong id="modal-amount">0 FCFA</strong></p>
+            <p>Numéro de bénéficiaire: <strong>92 87 16 05</strong></p>
+            
+            <div class="payment-steps">
+                <p><strong>Instructions de paiement:</strong></p>
+                <ol>
+                    <li>Ouvrez votre application T-Money/Yas ou Flooz</li>
+                    <li>Sélectionnez l'option de transfert d'argent</li>
+                    <li>Entrez le numéro <strong>92 87 16 05</strong></li>
+                    <li>Saisissez le montant indiqué ci-dessus</li>
+                    <li>Confirmez la transaction</li>
+                </ol>
+            </div>
+            
+            <div class="app-download">
+                <p>Si vous n'avez pas l'application T-Money/Yas: 
+                    <a href="https://play.google.com/store/apps/details?id=tg.togocom.tmoney" target="_blank">
+                        <i class="fab fa-google-play"></i> Télécharger sur Google Play
+                    </a>
+                </p>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-tmoney" id="yas-btn">
+                    <i class="fas fa-external-link-alt"></i> Ouvrir T-Money/Yas
+                </button>
+                
+                <button class="modal-btn modal-btn-flooz" id="flooz-modal-btn">
+                    <i class="fas fa-external-link-alt"></i> Ouvrir Flooz
+                </button>
+                
+                <button class="modal-btn modal-btn-cancel" id="cancel-btn">
+                    <i class="fas fa-times"></i> Annuler
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de zoom d'image -->
+    <div class="image-zoom-modal" id="image-zoom-modal">
+        <div class="image-zoom-content">
+            <span class="image-zoom-close" id="image-zoom-close">&times;</span>
+            <img id="zoomed-image" src="" alt="Image zoomée">
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Éléments du modal
+            const paymentModal = document.getElementById('payment-modal');
+            const modalAmount = document.getElementById('modal-amount');
+            const yasBtn = document.getElementById('yas-btn');
+            const floozModalBtn = document.getElementById('flooz-modal-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            
+            // Éléments de l'interface client
+            const importCatalog = document.getElementById('import-catalog');
+            const importBtn = document.getElementById('import-btn');
+            const productGrid = document.getElementById('product-grid');
+            const selectedProductsSection = document.getElementById('selected-products');
+            const selectedProductsList = document.getElementById('selected-products-list');
+            const notification = document.getElementById('notification');
+            
+            // Éléments de géolocalisation
+            const getLocationBtn = document.getElementById('get-location');
+            const locationLoading = document.getElementById('location-loading');
+            const mapContainer = document.getElementById('map-container');
+            const locationDetails = document.getElementById('location-details');
+            const detectedAddress = document.getElementById('detected-address');
+            const coordinates = document.getElementById('coordinates');
+            
+            // Éléments de zoom d'image
+            const imageZoomModal = document.getElementById('image-zoom-modal');
+            const imageZoomClose = document.getElementById('image-zoom-close');
+            const zoomedImage = document.getElementById('zoomed-image');
+            
+            // Informations de l'administrateur
+            const adminInfo = {
+                nom: "Kossi AGBELENKO",
+                whatsapp: "+228 92 87 16 05",
+                email: "agbelenko.kossi@gmail.com",
+                location: "Lomé, Togo"
+            };
+            
+            // Données des produits (stockées dans le localStorage)
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            
+            // Coordonnées GPS
+            let userCoordinates = null;
+            let userAddress = "";
+            
+            // Initialisation
+            renderClientProducts();
+            
+            // Afficher une notification
+            function showNotification(message, type) {
+                notification.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Importer un catalogue
+            importBtn.addEventListener('click', function() {
+                const file = importCatalog.files[0];
+                if (!file) {
+                    showNotification('Veuillez sélectionner un fichier', 'error');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedProducts = JSON.parse(e.target.result);
+                        if (Array.isArray(importedProducts)) {
+                            products = importedProducts;
+                            localStorage.setItem('products', JSON.stringify(products));
+                            renderClientProducts();
+                            showNotification('Catalogue importé avec succès!', 'success');
+                        } else {
+                            showNotification('Format de fichier invalide', 'error');
+                        }
+                    } catch (error) {
+                        showNotification('Erreur lors de l\'importation: ' + error.message, 'error');
+                    }
+                };
+                reader.readAsText(file);
+            });
+            
+            // Fonction pour ouvrir le zoom d'image
+            function openImageZoom(imageSrc) {
+                zoomedImage.src = imageSrc;
+                imageZoomModal.style.display = 'flex';
+            }
+            
+            // Fermer le modal de zoom d'image
+            imageZoomClose.addEventListener('click', function() {
+                imageZoomModal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === imageZoomModal) {
+                    imageZoomModal.style.display = 'none';
+                }
+            });
+            
+            // Rendu des produits dans l'interface client
+            function renderClientProducts() {
+                productGrid.innerHTML = '';
+                
+                if (products.length === 0) {
+                    productGrid.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Aucun produit disponible. Veuillez importer un catalogue.</p>';
+                    return;
+                }
+                
+                products.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.className = 'product-card';
+                    productElement.setAttribute('data-category', product.category);
+                    
+                    productElement.innerHTML = `
+                        ${product.image ? 
+                            `<div class="product-image">
+                                <img src="${product.image}" alt="${product.name}">
+                            </div>` : 
+                            `<div class="product-image ${product.category}"><i class="fas fa-box"></i></div>`
+                        }
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-price">${product.price.toLocaleString()} <span class="currency">FCFA</span></div>
+                            <p class="product-description">${product.description}</p>
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" data-id="${product.id}">-</button>
+                                <input type="number" class="quantity-input" id="qty-${product.id}" value="0" min="0" max="${product.stock}">
+                                <button class="quantity-btn plus" data-id="${product.id}">+</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    productGrid.appendChild(productElement);
+                });
+                
+                // Ajouter les événements pour les boutons de quantité
+                document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const productId = parseInt(this.getAttribute('data-id'));
+                        const input = document.getElementById(`qty-${productId}`);
+                        const max = parseInt(input.getAttribute('max'));
+                        
+                        if (parseInt(input.value) < max) {
+                            input.value = parseInt(input.value) + 1;
+                            updateOrderSummary();
+                            updateSelectedProducts();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const productId = parseInt(this.getAttribute('data-id'));
+                        const input = document.getElementById(`qty-${productId}`);
+                        
+                        if (parseInt(input.value) > 0) {
+                            input.value = parseInt(input.value) - 1;
+                            updateOrderSummary();
+                            updateSelectedProducts();
+                        }
+                    });
+                });
+                
+                // Ajouter l'événement de changement direct sur l'input
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', function() {
+                        const productId = this.id.replace('qty-', '');
+                        const max = parseInt(this.getAttribute('max'));
+                        const value = parseInt(this.value) || 0;
+                        
+                        if (value > max) {
+                            this.value = max;
+                        } else if (value < 0) {
+                            this.value = 0;
+                        }
+                        
+                        updateOrderSummary();
+                        updateSelectedProducts();
+                    });
+                });
+                
+                // Ajouter l'événement de zoom sur les images des produits
+                document.querySelectorAll('.product-image img').forEach(img => {
+                    img.addEventListener('click', function() {
+                        openImageZoom(this.src);
+                    });
+                });
+                
+                // Filtrer les produits par catégorie
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        const category = this.getAttribute('data-category');
+                        
+                        document.querySelectorAll('.product-card').forEach(card => {
+                            if (category === 'all' || card.getAttribute('data-category') === category) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+                
+                updateOrderSummary();
+                updateSelectedProducts();
+            }
+            
+            // Mise à jour des produits sélectionnés
+            function updateSelectedProducts() {
+                selectedProductsList.innerHTML = '';
+                let hasSelectedProducts = false;
+                
+                products.forEach(product => {
+                    const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                    if (quantity > 0) {
+                        hasSelectedProducts = true;
+                        const productElement = document.createElement('div');
+                        productElement.className = 'selected-product';
+                        
+                        productElement.innerHTML = `
+                            <div class="selected-product-info">
+                                <div class="selected-product-name">${product.name}</div>
+                                <div class="selected-product-price">${(quantity * product.price).toLocaleString()} FCFA</div>
+                            </div>
+                            <div class="selected-product-quantity">
+                                <span>Quantité: ${quantity}</span>
+                            </div>
+                        `;
+                        
+                        selectedProductsList.appendChild(productElement);
+                    }
+                });
+                
+                // Afficher ou masquer la section des produits sélectionnés
+                if (hasSelectedProducts) {
+                    selectedProductsSection.style.display = 'block';
+                } else {
+                    selectedProductsSection.style.display = 'none';
+                }
+            }
+            
+            // Mise à jour du récapitulatif de commande
+            function updateOrderSummary() {
+                let totalItems = 0;
+                let subtotal = 0;
+                
+                products.forEach(product => {
+                    const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                    if (quantity > 0) {
+                        totalItems += quantity;
+                        subtotal += quantity * product.price;
+                    }
+                });
+                
+                const deliveryFee = 2000;
+                const total = subtotal + deliveryFee;
+                
+                document.getElementById('articles-count').textContent = totalItems;
+                document.getElementById('subtotal').textContent = `${subtotal.toLocaleString()} FCFA`;
+                document.getElementById('total').textContent = `${total.toLocaleString()} FCFA`;
+                modalAmount.textContent = `${total.toLocaleString()} FCFA`;
+            }
+            
+            // Géolocalisation
+            getLocationBtn.addEventListener('click', function() {
+                if (!navigator.geolocation) {
+                    showNotification('La géolocalisation n\'est pas supportée par votre navigateur', 'error');
+                    return;
+                }
+                
+                locationLoading.style.display = 'block';
+                
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        // Stocker les coordonnées
+                        userCoordinates = { lat, lng };
+                        
+                        // Afficher les détails de localisation
+                        locationDetails.style.display = 'block';
+                        locationLoading.style.display = 'none';
+                        
+                        // Mettre à jour les coordonnées
+                        coordinates.textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                        
+                        // Utiliser l'API de géocodage pour obtenir l'adresse
+                        getAddressFromCoordinates(lat, lng);
+                        
+                        showNotification('Position obtenue avec succès!', 'success');
+                    },
+                    function(error) {
+                        locationLoading.style.display = 'none';
+                        let errorMessage;
+                        
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = "L'utilisateur a refusé la demande de géolocalisation.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = "Les informations de localisation ne sont pas disponibles.";
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = "La demande de géolocalisation a expiré.";
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                errorMessage = "Une erreur inconnue s'est produite.";
+                                break;
+                        }
+                        
+                        showNotification('Erreur de géolocalisation: ' + errorMessage, 'error');
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 60000
+                    }
+                );
+            });
+            
+            // Obtenir l'adresse à partir des coordonnées
+            function getAddressFromCoordinates(lat, lng) {
+                // Utilisation de l'API Nominatim (OpenStreetMap) pour le géocodage inverse
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.display_name) {
+                            userAddress = data.display_name;
+                            detectedAddress.textContent = userAddress;
+                        } else {
+                            detectedAddress.textContent = "Adresse non disponible";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur de géocodage:', error);
+                        detectedAddress.textContent = "Erreur lors de la récupération de l'adresse";
+                    });
+            }
+            
+            // Gestion des boutons de paiement
+            document.getElementById('whatsapp-btn').addEventListener('click', function() {
+                if (!validateOrder()) return;
+                
+                const orderDetails = generateOrderDetails();
+                // Utiliser le numéro WhatsApp de l'administrateur
+                const whatsappNumber = adminInfo.whatsapp.replace(/\D/g, '');
+                const whatsappText = encodeURIComponent(orderDetails);
+                
+                window.open(`https://wa.me/${whatsappNumber}?text=${whatsappText}`, '_blank');
+            });
+            
+            document.getElementById('tmoney-btn').addEventListener('click', function() {
+                if (!validateOrder()) return;
+                paymentModal.style.display = 'flex';
+            });
+            
+            document.getElementById('flooz-btn').addEventListener('click', function() {
+                if (!validateOrder()) return;
+                paymentModal.style.display = 'flex';
+            });
+            
+            // Ouvrir les applications de paiement
+            yasBtn.addEventListener('click', function() {
+                window.location.href = 'tmoney://send';
+            });
+            
+            floozModalBtn.addEventListener('click', function() {
+                window.location.href = 'flooz://send';
+            });
+            
+            // Fermer le modal de paiement
+            cancelBtn.addEventListener('click', function() {
+                paymentModal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === paymentModal) {
+                    paymentModal.style.display = 'none';
+                }
+            });
+            
+            // Valider la commande
+            function validateOrder() {
+                const nom = document.getElementById('nom').value.trim();
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                const adresse = document.getElementById('adresse').value.trim();
+                const confirm = document.getElementById('confirm').checked;
+                
+                if (!nom || !whatsapp || !adresse) {
+                    showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+                    return false;
+                }
+                
+                if (!confirm) {
+                    showNotification('Veuillez confirmer que les informations sont correctes', 'error');
+                    return false;
+                }
+                
+                const totalItems = parseInt(document.getElementById('articles-count').textContent);
+                if (totalItems === 0) {
+                    showNotification('Veuillez sélectionner au moins un article', 'error');
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            // Générer les détails de la commande
+            function generateOrderDetails() {
+                const nom = document.getElementById('nom').value;
+                const whatsapp = document.getElementById('whatsapp').value;
+                const adresse = document.getElementById('adresse').value;
+                
+                let orderText = `🛒 *NOUVELLE COMMANDE* 🛒\n\n`;
+                orderText += `👤 *Informations du client:*\n`;
+                orderText += `📛 Nom: ${nom}\n`;
+                orderText += `📱 WhatsApp: ${whatsapp}\n`;
+                orderText += `🏠 Adresse: ${adresse}\n`;
+                
+                // Ajouter les coordonnées GPS si disponibles
+                if (userCoordinates) {
+                    orderText += `📍 Coordonnées GPS: ${userCoordinates.lat.toFixed(6)}, ${userCoordinates.lng.toFixed(6)}\n`;
+                    orderText += `🗺️ Lien Google Maps: https://www.google.com/maps?q=${userCoordinates.lat},${userCoordinates.lng}\n`;
+                }
+                
+                // Ajouter l'adresse détectée si disponible
+                if (userAddress) {
+                    orderText += `🏡 Adresse détectée: ${userAddress}\n`;
+                }
+                
+                orderText += `\n📦 *Articles commandés:*\n`;
+                
+                let total = 0;
+                products.forEach(product => {
+                    const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                    if (quantity > 0) {
+                        orderText += `• ${product.name} (${quantity} x ${product.price.toLocaleString()} FCFA) = ${(quantity * product.price).toLocaleString()} FCFA\n`;
+                        total += quantity * product.price;
+                    }
+                });
+                
+                orderText += `\n💰 *Récapitulatif:*\n`;
+                orderText += `📦 Sous-total: ${total.toLocaleString()} FCFA\n`;
+                orderText += `🚚 Frais de livraison: 2 000 FCFA\n`;
+                orderText += `💵 TOTAL: ${(total + 2000).toLocaleString()} FCFA\n\n`;
+                
+                orderText += `⏰ *Date de commande:* ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}\n\n`;
+                
+                orderText += `Merci pour votre commande!`;
+                
+                return orderText;
+            }
+            
+            // Fonction globale pour le zoom d'image
+            window.openImageZoom = openImageZoom;
+        });
+    </script>
+</body>
+</html>
