@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Inscription - Plateforme de Vente en Ligne</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --whatsapp: #25D366;
+            --tmoney: #FF6B00;
+            --flooz: #00A650;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --admin-bg: #f8f9fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 10px;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+        
+        .description {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 15px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        
+        h2 i {
+            margin-right: 8px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 14px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-btn {
+            padding: 10px 15px;
+            background: var(--light);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .checkbox-container input {
+            width: auto;
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+        
+        .btn-cancel {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .payment-info {
+            background: #fff8e1;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid var(--warning);
+            font-size: 14px;
+        }
+        
+        .payment-info p {
+            margin-bottom: 8px;
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 140px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .form-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: var(--light);
+            color: var(--dark);
+            font-size: 13px;
+        }
+        
+        /* Modal d'inscription */
+        .inscription-modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .inscription-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .inscription-header {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .inscription-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+        
+        .inscription-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .inscription-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .inscription-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .inscription-btn-whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+        
+        .inscription-btn-cancel {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            left: 15px;
+            padding: 12px 15px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 600;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s, transform 0.3s;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.success {
+            background: var(--success);
+        }
+        
+        .notification.error {
+            background: var(--danger);
+        }
+        
+        /* Améliorations pour mobile */
+        @media (min-width: 768px) {
+            .inscription-content {
+                max-width: 600px;
+            }
+        }
+
+        /* Correction pour les très petits écrans */
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 20px;
+            }
+        }
+
+        /* Éviter le zoom sur les inputs sur iOS */
+        @media screen and (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+    
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-store"></i> Plateforme de Vente</h1>
+            <p class="description">Inscription pour les nouvelles boutiques</p>
+        </header>
+        
+        <div class="content">
+            <div class="section">
+                <h2><i class="fas fa-user-plus"></i> Inscription Nouvelle Boutique</h2>
+                
+                <div class="inscription-form">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-info-circle"></i> Informations de la Boutique
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shop-name">Nom de la boutique *</label>
+                                <input type="text" id="shop-name" placeholder="Nom de votre boutique" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="shop-type">Type de boutique *</label>
+                                <select id="shop-type" required>
+                                    <option value="">Sélectionnez un type</option>
+                                    <option value="electronique">Électronique</option>
+                                    <option value="vetements">Vêtements</option>
+                                    <option value="alimentation">Alimentation</option>
+                                    <option value="maison">Maison & Décoration</option>
+                                    <option value="sport">Sport & Loisirs</option>
+                                    <option value="beaute">Beauté & Cosmétiques</option>
+                                    <option value="autre">Autre</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shop-description">Description de la boutique *</label>
+                            <textarea id="shop-description" rows="3" placeholder="Décrivez votre boutique et vos produits" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shop-logo">Logo de la boutique</label>
+                            <input type="file" id="shop-logo" accept="image/*">
+                            <div class="image-preview" id="shop-logo-preview">
+                                <span>Aperçu du logo</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-user"></i> Informations du Gérant
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="manager-name">Nom complet *</label>
+                                <input type="text" id="manager-name" placeholder="Nom et prénom" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="manager-phone">Téléphone *</label>
+                                <input type="tel" id="manager-phone" placeholder="Numéro de téléphone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="manager-email">Email *</label>
+                                <input type="email" id="manager-email" placeholder="Adresse email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="manager-whatsapp">WhatsApp</label>
+                                <input type="tel" id="manager-whatsapp" placeholder="Numéro WhatsApp">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-map-marker-alt"></i> Localisation
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shop-address">Adresse *</label>
+                                <textarea id="shop-address" rows="2" placeholder="Adresse complète de la boutique" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shop-city">Ville *</label>
+                                <input type="text" id="shop-city" placeholder="Ville" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="shop-country">Pays *</label>
+                                <input type="text" id="shop-country" placeholder="Pays" value="Togo" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-boxes"></i> Catégories de Produits
+                        </div>
+                        
+                        <div class="form-group">
+                            <p>Sélectionnez les catégories de produits que vous proposez :</p>
+                            <div class="categories">
+                                <button type="button" class="category-btn" data-category="electronique">Électronique</button>
+                                <button type="button" class="category-btn" data-category="vetements">Vêtements</button>
+                                <button type="button" class="category-btn" data-category="alimentation">Alimentation</button>
+                                <button type="button" class="category-btn" data-category="maison">Maison</button>
+                                <button type="button" class="category-btn" data-category="sport">Sport</button>
+                                <button type="button" class="category-btn" data-category="beaute">Beauté</button>
+                                <button type="button" class="category-btn" data-category="livres">Livres</button>
+                                <button type="button" class="category-btn" data-category="jouets">Jouets</button>
+                            </div>
+                            <input type="hidden" id="selected-categories">
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">J'accepte les conditions d'utilisation et la politique de confidentialité *</label>
+                    </div>
+                </div>
+                
+                <div class="inscription-buttons">
+                    <button class="btn btn-whatsapp" id="send-whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Envoyer par WhatsApp
+                    </button>
+                </div>
+                
+                <div class="payment-info" style="margin-top: 15px;">
+                    <p><strong>Information :</strong> Votre inscription sera envoyée au service client (92 87 16 05) pour validation. Vous recevrez vos identifiants de connexion par retour.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 - Service Client: 92 87 16 05</p>
+        </footer>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Éléments d'inscription
+            const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
+            const notification = document.getElementById('notification');
+            
+            // Informations de l'administrateur
+            const adminInfo = {
+                nom: "Kossi AGBELENKO",
+                whatsapp: "+228 92 87 16 05",
+                email: "agbelenko.kossi@gmail.com",
+                location: "Lomé, Togo"
+            };
+            
+            // Afficher une notification
+            function showNotification(message, type) {
+                notification.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Gestion des catégories sélectionnées dans le formulaire d'inscription
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    updateSelectedCategories();
+                });
+            });
+            
+            // Mettre à jour les catégories sélectionnées
+            function updateSelectedCategories() {
+                const selectedCategories = [];
+                document.querySelectorAll('.category-btn.active').forEach(btn => {
+                    selectedCategories.push(btn.getAttribute('data-category'));
+                });
+                document.getElementById('selected-categories').value = selectedCategories.join(',');
+            }
+            
+            // Prévisualisation du logo de la boutique
+            document.getElementById('shop-logo').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('shop-logo-preview').innerHTML = `<img src="${e.target.result}" alt="Aperçu du logo">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Envoi de l'inscription par WhatsApp
+            sendWhatsappBtn.addEventListener('click', function() {
+                // Récupérer les valeurs du formulaire
+                const shopName = document.getElementById('shop-name').value.trim();
+                const shopType = document.getElementById('shop-type').value;
+                const shopDescription = document.getElementById('shop-description').value.trim();
+                const managerName = document.getElementById('manager-name').value.trim();
+                const managerPhone = document.getElementById('manager-phone').value.trim();
+                const managerEmail = document.getElementById('manager-email').value.trim();
+                const managerWhatsapp = document.getElementById('manager-whatsapp').value.trim();
+                const shopAddress = document.getElementById('shop-address').value.trim();
+                const shopCity = document.getElementById('shop-city').value.trim();
+                const shopCountry = document.getElementById('shop-country').value.trim();
+                const termsAccepted = document.getElementById('terms').checked;
+                const selectedCategories = document.getElementById('selected-categories').value;
+                
+                // Validation des champs obligatoires
+                if (!shopName || !shopType || !shopDescription || !managerName || !managerPhone || 
+                    !managerEmail || !shopAddress || !shopCity || !shopCountry) {
+                    showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+                    return;
+                }
+                
+                // Validation des conditions d'utilisation
+                if (!termsAccepted) {
+                    showNotification('Veuillez accepter les conditions d\'utilisation', 'error');
+                    return;
+                }
+                
+                // Validation des catégories sélectionnées
+                if (!selectedCategories) {
+                    showNotification('Veuillez sélectionner au moins une catégorie de produits', 'error');
+                    return;
+                }
+                
+                // Générer le message WhatsApp
+                const whatsappMessage = generateInscriptionMessage(
+                    shopName, shopType, shopDescription, managerName, managerPhone, 
+                    managerEmail, managerWhatsapp, shopAddress, shopCity, shopCountry, 
+                    selectedCategories
+                );
+                
+                // Numéro WhatsApp de destination (administrateur)
+                const whatsappNumber = adminInfo.whatsapp.replace(/\D/g, '');
+                
+                // Encoder le message pour l'URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                
+                // Ouvrir WhatsApp avec le message pré-rempli
+                window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+                
+                // Afficher un message de succès
+                showNotification('Formulaire d\'inscription prêt à être envoyé par WhatsApp!', 'success');
+            });
+            
+            // Générer le message d'inscription pour WhatsApp
+            function generateInscriptionMessage(shopName, shopType, shopDescription, managerName, managerPhone, 
+                                              managerEmail, managerWhatsapp, shopAddress, shopCity, shopCountry, 
+                                              selectedCategories) {
+                let message = "📋 *NOUVELLE INSCRIPTION BOUTIQUE* 📋\n\n";
+                
+                message += "🏪 *INFORMATIONS DE LA BOUTIQUE* 🏪\n";
+                message += `📛 Nom: ${shopName}\n`;
+                message += `📊 Type: ${shopType}\n`;
+                message += `📝 Description: ${shopDescription}\n\n`;
+                
+                message += "👤 *INFORMATIONS DU GÉRANT* 👤\n";
+                message += `👨‍💼 Nom: ${managerName}\n`;
+                message += `📞 Téléphone: ${managerPhone}\n`;
+                message += `📧 Email: ${managerEmail}\n`;
+                if (managerWhatsapp) {
+                    message += `💬 WhatsApp: ${managerWhatsapp}\n`;
+                }
+                message += `\n`;
+                
+                message += "📍 *LOCALISATION* 📍\n";
+                message += `🏠 Adresse: ${shopAddress}\n`;
+                message += `🌆 Ville: ${shopCity}\n`;
+                message += `🇹🇬 Pays: ${shopCountry}\n\n`;
+                
+                message += "📦 *CATÉGORIES DE PRODUITS* 📦\n";
+                const categories = selectedCategories.split(',');
+                categories.forEach(cat => {
+                    message += `• ${cat.charAt(0).toUpperCase() + cat.slice(1)}\n`;
+                });
+                message += `\n`;
+                
+                message += "⏰ *DATE D'INSCRIPTION* ⏰\n";
+                message += `📅 ${new Date().toLocaleDateString('fr-FR')}\n`;
+                message += `🕒 ${new Date().toLocaleTimeString('fr-FR')}\n\n`;
+                
+                message += "➖➖➖➖➖➖➖➖➖➖➖➖\n";
+                message += "Merci de traiter cette inscription et de créer un compte administrateur pour cette boutique.\n\n";
+                message += "Cordialement,\nPlateforme de Vente en Ligne";
+                
+                return message;
+            }
+        });
+    </script>
+</body>
+</html>
