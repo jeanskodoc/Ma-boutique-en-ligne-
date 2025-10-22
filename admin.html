@@ -2,10 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#3498db">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>Espace Administrateur - Plateforme de Vente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Variables CSS avec valeurs de secours */
         :root {
             --primary: #3498db;
             --secondary: #2c3e50;
@@ -17,15 +20,20 @@
             --admin-bg: #f8f9fa;
         }
         
+        /* Reset CSS amélioré pour compatibilité */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }
         
+        /* Polices de secours pour compatibilité */
         body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 
+                         'Helvetica Neue', sans-serif, 'Noto Sans', Arial;
             background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
@@ -33,6 +41,8 @@
             font-size: 14px;
             overflow-x: hidden;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .container {
@@ -45,7 +55,9 @@
         }
         
         header {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            background: -webkit-linear-gradient(135deg, #2c3e50, #3498db);
+            background: -moz-linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
             padding: 15px;
             text-align: center;
@@ -55,6 +67,7 @@
         h1 {
             margin-bottom: 5px;
             font-size: 18px;
+            font-weight: 600;
         }
         
         .description {
@@ -83,6 +96,9 @@
             align-items: center;
             gap: 5px;
             min-height: 36px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         .admin-btn:hover, .admin-btn:focus {
@@ -99,18 +115,19 @@
         }
         
         h2 {
-            color: var(--secondary);
+            color: #2c3e50;
             margin-bottom: 12px;
             padding-bottom: 6px;
-            border-bottom: 2px solid var(--light);
+            border-bottom: 2px solid #ecf0f1;
             display: flex;
             align-items: center;
             font-size: 16px;
+            font-weight: 600;
         }
         
         h2 i {
             margin-right: 8px;
-            color: var(--primary);
+            color: #3498db;
             font-size: 18px;
         }
         
@@ -122,10 +139,11 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
-            color: var(--dark);
+            color: #2c3e50;
             font-size: 13px;
         }
         
+        /* Styles compatibles pour les inputs */
         input, select, textarea {
             width: 100%;
             padding: 12px;
@@ -134,18 +152,21 @@
             font-size: 14px;
             transition: border-color 0.3s;
             -webkit-appearance: none;
+            -moz-appearance: none;
             appearance: none;
+            background: white;
         }
         
+        /* Focus styles compatibles */
         input:focus, select:focus, textarea:focus {
-            border-color: var(--primary);
+            border-color: #3498db;
             outline: none;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
         
         /* Styles pour l'interface administrateur */
         .admin-panel {
-            background: var(--admin-bg);
+            background: #f8f9fa;
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 15px;
@@ -190,6 +211,9 @@
             min-height: 44px;
             flex: 1;
             justify-content: center;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         .btn-admin:active {
@@ -197,27 +221,27 @@
         }
         
         .btn-add {
-            background: var(--success);
+            background: #2ecc71;
             color: white;
         }
         
         .btn-clear {
-            background: var(--light);
-            color: var(--dark);
+            background: #ecf0f1;
+            color: #2c3e50;
         }
         
         .btn-save {
-            background: var(--primary);
+            background: #3498db;
             color: white;
         }
         
         .btn-export {
-            background: var(--warning);
+            background: #f39c12;
             color: white;
         }
         
         .btn-import {
-            background: var(--primary);
+            background: #3498db;
             color: white;
         }
         
@@ -253,7 +277,7 @@
         }
         
         .btn-edit {
-            background: var(--primary);
+            background: #3498db;
             color: white;
             padding: 6px 10px;
             border: none;
@@ -265,10 +289,13 @@
             gap: 3px;
             flex: 1;
             justify-content: center;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         .btn-delete {
-            background: var(--danger);
+            background: #e74c3c;
             color: white;
             padding: 6px 10px;
             border: none;
@@ -280,6 +307,9 @@
             gap: 3px;
             flex: 1;
             justify-content: center;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         .image-preview {
@@ -318,6 +348,9 @@
             align-items: center;
             gap: 5px;
             min-height: 36px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         .btn-retour:hover {
@@ -329,7 +362,7 @@
             padding: 10px;
             background: #f0f7ff;
             border-radius: 8px;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid #3498db;
         }
         
         .notification {
@@ -355,11 +388,11 @@
         }
         
         .notification.success {
-            background: var(--success);
+            background: #2ecc71;
         }
         
         .notification.error {
-            background: var(--danger);
+            background: #e74c3c;
         }
         
         /* Informations de l'administrateur */
@@ -368,11 +401,11 @@
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 15px;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid #3498db;
         }
         
         .admin-info h3 {
-            color: var(--primary);
+            color: #3498db;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
@@ -394,7 +427,7 @@
         }
         
         .admin-detail i {
-            color: var(--primary);
+            color: #3498db;
             width: 16px;
         }
         
@@ -445,7 +478,7 @@
         
         /* Modal d'authentification */
         .auth-modal {
-            display: flex;
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -472,7 +505,7 @@
             font-size: 20px;
             font-weight: 700;
             margin-bottom: 15px;
-            color: var(--dark);
+            color: #2c3e50;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -505,6 +538,9 @@
             gap: 6px;
             transition: all 0.3s;
             min-height: 44px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         .auth-btn:active {
@@ -512,13 +548,13 @@
         }
         
         .auth-btn-primary {
-            background: var(--primary);
+            background: #3498db;
             color: white;
         }
         
         .auth-btn-cancel {
-            background: var(--light);
-            color: var(--dark);
+            background: #ecf0f1;
+            color: #2c3e50;
         }
         
         .password-toggle {
@@ -537,8 +573,8 @@
         footer {
             text-align: center;
             padding: 12px;
-            background: var(--light);
-            color: var(--dark);
+            background: #ecf0f1;
+            color: #2c3e50;
             font-size: 12px;
         }
         
@@ -735,12 +771,12 @@
         /* Style pour les champs obligatoires */
         .required:after {
             content: " *";
-            color: var(--danger);
+            color: #e74c3c;
         }
         
         /* Style pour les messages d'erreur */
         .error-message {
-            color: var(--danger);
+            color: #e74c3c;
             font-size: 12px;
             margin-top: 5px;
             display: none;
@@ -764,6 +800,38 @@
         
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        
+        /* Corrections spécifiques pour Samsung Internet */
+        @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+            .admin-btn, .btn-admin, .btn-edit, .btn-delete, .btn-retour, .auth-btn {
+                -webkit-appearance: none;
+                background-image: none;
+            }
+        }
+        
+        /* Corrections pour les anciens navigateurs */
+        @supports not (display: grid) {
+            .admin-products {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            
+            .admin-product {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            @media (min-width: 768px) {
+                .admin-product {
+                    width: calc(50% - 10px);
+                    margin-right: 10px;
+                }
+                
+                .admin-product:nth-child(2n) {
+                    margin-right: 0;
+                }
+            }
         }
     </style>
 </head>
@@ -960,6 +1028,17 @@
     <div id="notification" class="notification"></div>
 
     <script>
+        // Détection du navigateur pour compatibilité
+        const isSamsungBrowser = /SamsungBrowser/i.test(navigator.userAgent);
+        const isChrome = /Chrome/i.test(navigator.userAgent);
+        const isFirefox = /Firefox/i.test(navigator.userAgent);
+        
+        // Polyfill pour les anciens navigateurs
+        if (!window.Promise) {
+            // Charger un polyfill pour les Promises si nécessaire
+            console.log('Navigateur ancien détecté, chargement des polyfills...');
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Éléments d'authentification
             const authModal = document.getElementById('auth-modal');
@@ -1144,19 +1223,33 @@
             
             // Annuler l'authentification
             authCancelBtn.addEventListener('click', function() {
-                window.location.href = 'index.html';
+                // Utiliser une méthode compatible pour la redirection
+                try {
+                    window.location.href = 'index.html';
+                } catch (e) {
+                    // Fallback pour les anciens navigateurs
+                    window.location.replace('index.html');
+                }
             });
             
             // Fermer le modal d'authentification en cliquant à l'extérieur
             window.addEventListener('click', function(event) {
                 if (event.target === authModal) {
-                    window.location.href = 'index.html';
+                    try {
+                        window.location.href = 'index.html';
+                    } catch (e) {
+                        window.location.replace('index.html');
+                    }
                 }
             });
             
             // Aller à la boutique
             viewStore.addEventListener('click', function() {
-                window.location.href = 'client.html';
+                try {
+                    window.location.href = 'client.html';
+                } catch (e) {
+                    window.location.replace('client.html');
+                }
             });
             
             // Déconnexion
@@ -1179,6 +1272,12 @@
                         return;
                     }
                     
+                    // Vérifier le type de fichier
+                    if (!file.type.match('image.*')) {
+                        showNotification('Veuillez sélectionner une image valide', 'error');
+                        return;
+                    }
+                    
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         imagePreview.innerHTML = `<img src="${e.target.result}" alt="Aperçu">`;
@@ -1187,6 +1286,11 @@
                             openImageZoom(e.target.result);
                         });
                     };
+                    
+                    reader.onerror = function() {
+                        showNotification('Erreur lors du chargement de l\'image', 'error');
+                    };
+                    
                     reader.readAsDataURL(file);
                 }
             });
@@ -1237,6 +1341,11 @@
                             addProductToStorage(name, price, category, stock, description, imageData);
                         }
                     };
+                    
+                    reader.onerror = function() {
+                        showNotification('Erreur lors du chargement de l\'image', 'error');
+                    };
+                    
                     reader.readAsDataURL(imageFile);
                 } else {
                     if (editingProductId) {
@@ -1348,7 +1457,15 @@
                 const linkElement = document.createElement('a');
                 linkElement.setAttribute('href', dataUri);
                 linkElement.setAttribute('download', exportFileDefaultName);
-                linkElement.click();
+                
+                // Méthode compatible pour tous les navigateurs
+                if (document.createEvent) {
+                    const event = document.createEvent('MouseEvents');
+                    event.initEvent('click', true, true);
+                    linkElement.dispatchEvent(event);
+                } else {
+                    linkElement.click();
+                }
                 
                 showNotification('Catalogue exporté avec succès!', 'success');
             });
@@ -1391,6 +1508,11 @@
                         showNotification('Erreur lors de l\'importation: ' + error.message, 'error');
                     }
                 };
+                
+                reader.onerror = function() {
+                    showNotification('Erreur lors de la lecture du fichier', 'error');
+                };
+                
                 reader.readAsText(file);
             });
             
@@ -1412,18 +1534,22 @@
                     const productElement = document.createElement('div');
                     productElement.className = 'admin-product fade-in';
                     
+                    // Échapper les caractères spéciaux pour éviter les erreurs
+                    const safeName = product.name.replace(/'/g, "\\'");
+                    const safeDescription = product.description.replace(/'/g, "\\'");
+                    
                     productElement.innerHTML = `
                         ${product.image ? 
-                            `<img src="${product.image}" alt="${product.name}" onclick="openImageZoom('${product.image}')">` : 
+                            `<img src="${product.image}" alt="${safeName}" onclick="openImageZoom('${product.image.replace(/'/g, "\\'")}')">` : 
                             `<div style="height: 120px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 5px; margin-bottom: 8px;">
                                 <i class="fas fa-box" style="font-size: 40px; color: #ccc;"></i>
                             </div>`
                         }
-                        <h3 style="margin-bottom: 8px; color: var(--secondary); font-size: 14px;">${product.name}</h3>
+                        <h3 style="margin-bottom: 8px; color: #2c3e50; font-size: 14px;">${safeName}</h3>
                         <p style="margin-bottom: 5px; font-size: 12px;"><strong>Prix:</strong> ${product.price.toLocaleString()} FCFA</p>
                         <p style="margin-bottom: 5px; font-size: 12px;"><strong>Catégorie:</strong> ${product.category}</p>
                         <p style="margin-bottom: 10px; font-size: 12px;"><strong>Stock:</strong> ${product.stock} unités</p>
-                        <p style="font-size: 12px; color: #666; margin-bottom: 10px; line-height: 1.4;">${product.description}</p>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 10px; line-height: 1.4;">${safeDescription}</p>
                         <div class="product-actions">
                             <button class="btn-edit" data-id="${product.id}">
                                 <i class="fas fa-edit"></i> Modifier
@@ -1517,6 +1643,14 @@
                     loginBtn.click();
                 }
             });
+            
+            // Correction pour les anciens navigateurs qui ne supportent pas flexbox
+            if (typeof Flexbox === 'undefined') {
+                const flexContainers = document.querySelectorAll('.admin-bar, .admin-actions, .auth-buttons, .product-actions');
+                flexContainers.forEach(container => {
+                    container.style.display = 'block';
+                });
+            }
         });
     </script>
 </body>
