@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espace Administrateur - Plateforme de Vente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -30,7 +30,7 @@
             color: #333;
             line-height: 1.6;
             padding: 10px;
-            font-size: 16px;
+            font-size: 14px;
             overflow-x: hidden;
             min-height: 100vh;
         }
@@ -47,18 +47,18 @@
         header {
             background: linear-gradient(135deg, var(--secondary), var(--primary));
             color: white;
-            padding: 20px 15px;
+            padding: 15px;
             text-align: center;
             position: relative;
         }
         
         h1 {
-            margin-bottom: 8px;
-            font-size: 22px;
+            margin-bottom: 5px;
+            font-size: 18px;
         }
         
         .description {
-            font-size: 14px;
+            font-size: 12px;
             opacity: 0.9;
         }
         
@@ -66,7 +66,7 @@
             display: flex;
             gap: 8px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 12px;
             flex-wrap: wrap;
         }
         
@@ -77,11 +77,12 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             transition: background 0.3s;
             display: flex;
             align-items: center;
             gap: 5px;
+            min-height: 36px;
         }
         
         .admin-btn:hover, .admin-btn:focus {
@@ -89,48 +90,48 @@
         }
         
         .content {
-            padding: 15px;
+            padding: 12px;
         }
         
         .section {
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
         }
         
         h2 {
             color: var(--secondary);
-            margin-bottom: 15px;
-            padding-bottom: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
             border-bottom: 2px solid var(--light);
             display: flex;
             align-items: center;
-            font-size: 18px;
+            font-size: 16px;
         }
         
         h2 i {
             margin-right: 8px;
             color: var(--primary);
-            font-size: 20px;
+            font-size: 18px;
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             font-weight: 600;
             color: var(--dark);
-            font-size: 14px;
+            font-size: 13px;
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             transition: border-color 0.3s;
             -webkit-appearance: none;
             appearance: none;
@@ -145,14 +146,14 @@
         /* Styles pour l'interface administrateur */
         .admin-panel {
             background: var(--admin-bg);
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .admin-section {
-            margin-bottom: 20px;
-            padding: 12px;
+            margin-bottom: 15px;
+            padding: 10px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -161,7 +162,7 @@
         .admin-form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
         
         .admin-form .form-group-full {
@@ -171,8 +172,8 @@
         .admin-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 6px;
+            margin-top: 10px;
         }
         
         .btn-admin {
@@ -181,11 +182,14 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             transition: transform 0.3s;
             display: flex;
             align-items: center;
             gap: 5px;
+            min-height: 44px;
+            flex: 1;
+            justify-content: center;
         }
         
         .btn-admin:active {
@@ -220,13 +224,13 @@
         .admin-products {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-top: 12px;
+            gap: 10px;
+            margin-top: 10px;
         }
         
         .admin-product {
             background: white;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
             position: relative;
@@ -235,10 +239,10 @@
         
         .admin-product img {
             width: 100%;
-            height: 140px;
+            height: 120px;
             object-fit: cover;
             border-radius: 5px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             cursor: pointer;
         }
         
@@ -255,10 +259,12 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             display: flex;
             align-items: center;
             gap: 3px;
+            flex: 1;
+            justify-content: center;
         }
         
         .btn-delete {
@@ -268,24 +274,28 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             display: flex;
             align-items: center;
             gap: 3px;
+            flex: 1;
+            justify-content: center;
         }
         
         .image-preview {
             width: 100%;
-            height: 140px;
+            height: 120px;
             border: 2px dashed #ddd;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             overflow: hidden;
             background: #f9f9f9;
             cursor: pointer;
+            text-align: center;
+            padding: 10px;
         }
         
         .image-preview img {
@@ -296,17 +306,18 @@
         }
         
         .btn-retour {
-            padding: 8px 14px;
+            padding: 8px 12px;
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
-            margin-bottom: 12px;
+            font-size: 13px;
+            margin-bottom: 10px;
             transition: background 0.3s;
             display: flex;
             align-items: center;
             gap: 5px;
+            min-height: 36px;
         }
         
         .btn-retour:hover {
@@ -314,8 +325,8 @@
         }
         
         .import-section {
-            margin-top: 15px;
-            padding: 12px;
+            margin-top: 12px;
+            padding: 10px;
             background: #f0f7ff;
             border-radius: 8px;
             border-left: 4px solid var(--primary);
@@ -323,9 +334,9 @@
         
         .notification {
             position: fixed;
-            top: 15px;
-            right: 15px;
-            left: 15px;
+            top: 10px;
+            right: 10px;
+            left: 10px;
             padding: 12px 15px;
             border-radius: 5px;
             color: white;
@@ -335,7 +346,7 @@
             transform: translateY(-20px);
             transition: opacity 0.3s, transform 0.3s;
             text-align: center;
-            font-size: 14px;
+            font-size: 13px;
         }
         
         .notification.show {
@@ -354,35 +365,37 @@
         /* Informations de l'administrateur */
         .admin-info {
             background: #e8f4fc;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-left: 4px solid var(--primary);
         }
         
         .admin-info h3 {
             color: var(--primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            font-size: 15px;
         }
         
         .admin-details {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 8px;
         }
         
         .admin-detail {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            font-size: 12px;
         }
         
         .admin-detail i {
             color: var(--primary);
-            width: 20px;
+            width: 16px;
         }
         
         /* Modal de zoom d'image */
@@ -397,12 +410,12 @@
             z-index: 3000;
             align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 10px;
         }
         
         .image-zoom-content {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 95%;
+            max-height: 95%;
             position: relative;
         }
         
@@ -416,14 +429,14 @@
         
         .image-zoom-close {
             position: absolute;
-            top: -40px;
+            top: -35px;
             right: 0;
             color: white;
-            font-size: 30px;
+            font-size: 24px;
             cursor: pointer;
             background: rgba(0, 0, 0, 0.5);
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -447,50 +460,51 @@
         
         .auth-content {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 12px;
             width: 100%;
-            max-width: 400px;
+            max-width: 350px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         
         .auth-header {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: var(--dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .auth-form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         
         .auth-buttons {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 15px;
         }
         
         .auth-btn {
             padding: 12px;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             transition: all 0.3s;
+            min-height: 44px;
         }
         
         .auth-btn:active {
@@ -509,7 +523,7 @@
         
         .password-toggle {
             position: absolute;
-            right: 15px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
@@ -522,16 +536,133 @@
         
         footer {
             text-align: center;
-            padding: 15px;
+            padding: 12px;
             background: var(--light);
             color: var(--dark);
-            font-size: 13px;
+            font-size: 12px;
         }
         
-        /* Améliorations pour mobile */
-        @media (min-width: 768px) {
+        /* Améliorations pour petits écrans (jusqu'à 360px) */
+        @media (max-width: 360px) {
+            body {
+                padding: 5px;
+                font-size: 13px;
+            }
+            
+            header {
+                padding: 12px 10px;
+            }
+            
+            h1 {
+                font-size: 16px;
+            }
+            
+            .description {
+                font-size: 11px;
+            }
+            
+            .admin-btn {
+                padding: 6px 8px;
+                font-size: 10px;
+            }
+            
+            .content {
+                padding: 10px;
+            }
+            
+            .admin-panel {
+                padding: 10px;
+            }
+            
+            .admin-section {
+                padding: 8px;
+            }
+            
+            input, select, textarea {
+                padding: 10px;
+                font-size: 13px;
+            }
+            
+            .btn-admin {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            
+            .admin-product img, .image-preview {
+                height: 100px;
+            }
+        }
+        
+        /* Améliorations pour écrans moyens (361px à 767px) */
+        @media (min-width: 361px) and (max-width: 767px) {
             .admin-products {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            
+            .admin-actions {
+                flex-direction: row;
+            }
+            
+            .btn-admin {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+        
+        /* Améliorations pour tablettes et grands écrans (768px et plus) */
+        @media (min-width: 768px) {
+            body {
+                font-size: 16px;
+                padding: 15px;
+            }
+            
+            .container {
+                max-width: 1200px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .description {
+                font-size: 16px;
+            }
+            
+            .admin-bar {
+                justify-content: flex-end;
+                margin-top: 0;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            h1 {
+                padding-right: 200px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .admin-panel {
+                padding: 20px;
+            }
+            
+            .admin-section {
+                padding: 20px;
+            }
+            
+            .admin-products {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .admin-product img, .image-preview {
+                height: 160px;
             }
             
             .admin-form {
@@ -544,54 +675,37 @@
                 grid-template-columns: 1fr 1fr;
             }
             
-            .admin-bar {
-                justify-content: flex-end;
-                margin-top: 0;
-                position: absolute;
-                top: 15px;
-                right: 10px;
-            }
-            
-            h1 {
-                padding-right: 100px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .admin-actions {
-                flex-direction: column;
-            }
-            
             .btn-admin {
-                width: 100%;
+                font-size: 14px;
+                padding: 12px 15px;
             }
             
-            .auth-content {
-                padding: 20px;
+            input, select, textarea {
+                font-size: 16px;
+                padding: 14px;
             }
             
             .product-actions {
-                flex-direction: column;
+                flex-direction: row;
             }
             
             .btn-edit, .btn-delete {
-                width: 100%;
-                justify-content: center;
+                flex: none;
             }
         }
         
-        /* Améliorations pour Android */
-        @media (max-width: 767px) {
-            input, select, textarea {
-                font-size: 16px; /* Empêche le zoom automatique sur iOS */
+        /* Améliorations pour très grands écrans (1200px et plus) */
+        @media (min-width: 1200px) {
+            .admin-products {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
             
-            .btn-admin, .auth-btn {
-                min-height: 44px; /* Taille minimale pour les doigts */
+            .admin-form {
+                grid-template-columns: 1fr 1fr 1fr;
             }
             
-            .admin-btn {
-                min-height: 36px;
+            .admin-form .form-group-full {
+                grid-column: span 3;
             }
         }
         
@@ -623,6 +737,34 @@
             content: " *";
             color: var(--danger);
         }
+        
+        /* Style pour les messages d'erreur */
+        .error-message {
+            color: var(--danger);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Style pour les états de chargement */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
     
@@ -638,6 +780,7 @@
                 <div class="form-group">
                     <label for="admin-username" class="required">Identifiant</label>
                     <input type="text" id="admin-username" placeholder="Votre identifiant" required>
+                    <div class="error-message" id="username-error"></div>
                 </div>
                 
                 <div class="form-group">
@@ -648,6 +791,7 @@
                             <i class="fas fa-eye"></i>
                         </span>
                     </div>
+                    <div class="error-message" id="password-error"></div>
                 </div>
             </div>
             
@@ -730,11 +874,13 @@
                         <div class="form-group">
                             <label for="product-name" class="required">Nom du produit</label>
                             <input type="text" id="product-name" placeholder="Nom du produit" required>
+                            <div class="error-message" id="name-error"></div>
                         </div>
                         
                         <div class="form-group">
                             <label for="product-price" class="required">Prix (FCFA)</label>
                             <input type="number" id="product-price" placeholder="Prix en FCFA" min="0" required>
+                            <div class="error-message" id="price-error"></div>
                         </div>
                         
                         <div class="form-group">
@@ -749,16 +895,19 @@
                                 <option value="beaute">Beauté</option>
                                 <option value="autre">Autre</option>
                             </select>
+                            <div class="error-message" id="category-error"></div>
                         </div>
                         
                         <div class="form-group">
                             <label for="product-stock" class="required">Stock disponible</label>
                             <input type="number" id="product-stock" placeholder="Quantité en stock" min="0" required>
+                            <div class="error-message" id="stock-error"></div>
                         </div>
                         
                         <div class="form-group form-group-full">
                             <label for="product-description" class="required">Description</label>
                             <textarea id="product-description" rows="3" placeholder="Description du produit" required></textarea>
+                            <div class="error-message" id="description-error"></div>
                         </div>
                         
                         <div class="form-group form-group-full">
@@ -891,6 +1040,68 @@
                 }, 3000);
             }
             
+            // Afficher un message d'erreur
+            function showError(elementId, message) {
+                const errorElement = document.getElementById(elementId);
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.style.display = 'block';
+                }
+            }
+            
+            // Cacher un message d'erreur
+            function hideError(elementId) {
+                const errorElement = document.getElementById(elementId);
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+            }
+            
+            // Valider le formulaire de produit
+            function validateProductForm() {
+                let isValid = true;
+                
+                // Réinitialiser les erreurs
+                hideError('name-error');
+                hideError('price-error');
+                hideError('category-error');
+                hideError('stock-error');
+                hideError('description-error');
+                
+                const name = document.getElementById('product-name').value.trim();
+                const price = document.getElementById('product-price').value;
+                const category = document.getElementById('product-category').value;
+                const stock = document.getElementById('product-stock').value;
+                const description = document.getElementById('product-description').value.trim();
+                
+                if (!name) {
+                    showError('name-error', 'Le nom du produit est obligatoire');
+                    isValid = false;
+                }
+                
+                if (!price || price <= 0) {
+                    showError('price-error', 'Le prix doit être supérieur à 0');
+                    isValid = false;
+                }
+                
+                if (!category) {
+                    showError('category-error', 'Veuillez sélectionner une catégorie');
+                    isValid = false;
+                }
+                
+                if (!stock || stock < 0) {
+                    showError('stock-error', 'Le stock ne peut pas être négatif');
+                    isValid = false;
+                }
+                
+                if (!description) {
+                    showError('description-error', 'La description est obligatoire');
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
             // Toggle pour afficher/masquer le mot de passe
             passwordToggle.addEventListener('click', function() {
                 const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -903,8 +1114,17 @@
                 const username = adminUsername.value.trim();
                 const password = adminPassword.value.trim();
                 
-                if (!username || !password) {
-                    showNotification('Veuillez saisir un identifiant et un mot de passe', 'error');
+                // Réinitialiser les erreurs
+                hideError('username-error');
+                hideError('password-error');
+                
+                if (!username) {
+                    showError('username-error', 'L\'identifiant est obligatoire');
+                    return;
+                }
+                
+                if (!password) {
+                    showError('password-error', 'Le mot de passe est obligatoire');
                     return;
                 }
                 
@@ -918,7 +1138,7 @@
                     adminUsername.value = '';
                     adminPassword.value = '';
                 } else {
-                    showNotification('Identifiant ou mot de passe incorrect', 'error');
+                    showError('password-error', 'Identifiant ou mot de passe incorrect');
                 }
             });
             
@@ -995,27 +1215,16 @@
                     return;
                 }
                 
+                if (!validateProductForm()) {
+                    return;
+                }
+                
                 const name = document.getElementById('product-name').value.trim();
                 const price = document.getElementById('product-price').value;
                 const category = document.getElementById('product-category').value;
                 const stock = document.getElementById('product-stock').value;
                 const description = document.getElementById('product-description').value.trim();
                 const imageFile = productImage.files[0];
-                
-                if (!name || !price || !category || !stock || !description) {
-                    showNotification('Veuillez remplir tous les champs obligatoires', 'error');
-                    return;
-                }
-                
-                if (price <= 0) {
-                    showNotification('Le prix doit être supérieur à 0', 'error');
-                    return;
-                }
-                
-                if (stock < 0) {
-                    showNotification('Le stock ne peut pas être négatif', 'error');
-                    return;
-                }
                 
                 let imageData = '';
                 if (imageFile) {
@@ -1099,6 +1308,13 @@
                 imagePreview.innerHTML = '<span><i class="fas fa-image"></i> Cliquez pour sélectionner une image</span>';
                 editingProductId = null;
                 addProductBtn.innerHTML = '<i class="fas fa-plus"></i> Ajouter le produit';
+                
+                // Réinitialiser les erreurs
+                hideError('name-error');
+                hideError('price-error');
+                hideError('category-error');
+                hideError('stock-error');
+                hideError('description-error');
             }
             
             // Enregistrer les produits
@@ -1199,15 +1415,15 @@
                     productElement.innerHTML = `
                         ${product.image ? 
                             `<img src="${product.image}" alt="${product.name}" onclick="openImageZoom('${product.image}')">` : 
-                            `<div style="height: 140px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 5px; margin-bottom: 8px;">
+                            `<div style="height: 120px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 5px; margin-bottom: 8px;">
                                 <i class="fas fa-box" style="font-size: 40px; color: #ccc;"></i>
                             </div>`
                         }
-                        <h3 style="margin-bottom: 8px; color: var(--secondary);">${product.name}</h3>
-                        <p style="margin-bottom: 5px;"><strong>Prix:</strong> ${product.price.toLocaleString()} FCFA</p>
-                        <p style="margin-bottom: 5px;"><strong>Catégorie:</strong> ${product.category}</p>
-                        <p style="margin-bottom: 10px;"><strong>Stock:</strong> ${product.stock} unités</p>
-                        <p style="font-size: 14px; color: #666; margin-bottom: 10px;">${product.description}</p>
+                        <h3 style="margin-bottom: 8px; color: var(--secondary); font-size: 14px;">${product.name}</h3>
+                        <p style="margin-bottom: 5px; font-size: 12px;"><strong>Prix:</strong> ${product.price.toLocaleString()} FCFA</p>
+                        <p style="margin-bottom: 5px; font-size: 12px;"><strong>Catégorie:</strong> ${product.category}</p>
+                        <p style="margin-bottom: 10px; font-size: 12px;"><strong>Stock:</strong> ${product.stock} unités</p>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 10px; line-height: 1.4;">${product.description}</p>
                         <div class="product-actions">
                             <button class="btn-edit" data-id="${product.id}">
                                 <i class="fas fa-edit"></i> Modifier
