@@ -32,6 +32,7 @@
             padding: 10px;
             font-size: 16px;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         
         .container {
@@ -78,9 +79,12 @@
             cursor: pointer;
             font-size: 12px;
             transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
-        .admin-btn:hover {
+        .admin-btn:hover, .admin-btn:focus {
             background: rgba(255, 255, 255, 0.3);
         }
         
@@ -128,6 +132,8 @@
             border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
         }
         
         input:focus, select:focus, textarea:focus {
@@ -177,6 +183,9 @@
             font-weight: 600;
             font-size: 14px;
             transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .btn-admin:active {
@@ -247,6 +256,9 @@
             border-radius: 3px;
             cursor: pointer;
             font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
         }
         
         .btn-delete {
@@ -257,6 +269,9 @@
             border-radius: 3px;
             cursor: pointer;
             font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
         }
         
         .image-preview {
@@ -270,6 +285,7 @@
             margin-bottom: 12px;
             overflow: hidden;
             background: #f9f9f9;
+            cursor: pointer;
         }
         
         .image-preview img {
@@ -288,6 +304,9 @@
             font-size: 14px;
             margin-bottom: 12px;
             transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .btn-retour:hover {
@@ -509,6 +528,7 @@
             font-size: 13px;
         }
         
+        /* Améliorations pour mobile */
         @media (min-width: 768px) {
             .admin-products {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -549,6 +569,59 @@
             .auth-content {
                 padding: 20px;
             }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .btn-edit, .btn-delete {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Améliorations pour Android */
+        @media (max-width: 767px) {
+            input, select, textarea {
+                font-size: 16px; /* Empêche le zoom automatique sur iOS */
+            }
+            
+            .btn-admin, .auth-btn {
+                min-height: 44px; /* Taille minimale pour les doigts */
+            }
+            
+            .admin-btn {
+                min-height: 36px;
+            }
+        }
+        
+        /* Animation pour les nouveaux éléments */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Amélioration de l'accessibilité */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Style pour les champs obligatoires */
+        .required:after {
+            content: " *";
+            color: var(--danger);
         }
     </style>
 </head>
@@ -563,12 +636,12 @@
             
             <div class="auth-form">
                 <div class="form-group">
-                    <label for="admin-username">Identifiant</label>
+                    <label for="admin-username" class="required">Identifiant</label>
                     <input type="text" id="admin-username" placeholder="Votre identifiant" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="admin-password">Mot de passe</label>
+                    <label for="admin-password" class="required">Mot de passe</label>
                     <div class="password-container">
                         <input type="password" id="admin-password" placeholder="Votre mot de passe" required>
                         <span class="password-toggle" id="password-toggle">
@@ -655,17 +728,17 @@
                     
                     <div class="admin-form">
                         <div class="form-group">
-                            <label for="product-name">Nom du produit *</label>
+                            <label for="product-name" class="required">Nom du produit</label>
                             <input type="text" id="product-name" placeholder="Nom du produit" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="product-price">Prix (FCFA) *</label>
+                            <label for="product-price" class="required">Prix (FCFA)</label>
                             <input type="number" id="product-price" placeholder="Prix en FCFA" min="0" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="product-category">Catégorie *</label>
+                            <label for="product-category" class="required">Catégorie</label>
                             <select id="product-category" required>
                                 <option value="">Sélectionner une catégorie</option>
                                 <option value="electronique">Électronique</option>
@@ -673,24 +746,26 @@
                                 <option value="alimentation">Alimentation</option>
                                 <option value="maison">Maison</option>
                                 <option value="sport">Sport</option>
+                                <option value="beaute">Beauté</option>
+                                <option value="autre">Autre</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="product-stock">Stock disponible *</label>
+                            <label for="product-stock" class="required">Stock disponible</label>
                             <input type="number" id="product-stock" placeholder="Quantité en stock" min="0" required>
                         </div>
                         
                         <div class="form-group form-group-full">
-                            <label for="product-description">Description *</label>
+                            <label for="product-description" class="required">Description</label>
                             <textarea id="product-description" rows="3" placeholder="Description du produit" required></textarea>
                         </div>
                         
                         <div class="form-group form-group-full">
                             <label for="product-image">Image du produit</label>
-                            <input type="file" id="product-image" accept="image/*">
-                            <div class="image-preview" id="image-preview">
-                                <span>Aperçu de l'image</span>
+                            <input type="file" id="product-image" accept="image/*" style="display: none;">
+                            <div class="image-preview" id="image-preview" onclick="document.getElementById('product-image').click()">
+                                <span><i class="fas fa-image"></i> Cliquez pour sélectionner une image</span>
                             </div>
                         </div>
                     </div>
@@ -775,6 +850,9 @@
             // État d'authentification
             let isAuthenticated = false;
             
+            // État d'édition
+            let editingProductId = null;
+            
             // Vérifier l'authentification au chargement
             checkAuthentication();
             
@@ -858,7 +936,7 @@
             
             // Aller à la boutique
             viewStore.addEventListener('click', function() {
-                window.location.href = 'boutique.html';
+                window.location.href = 'client.html';
             });
             
             // Déconnexion
@@ -875,6 +953,12 @@
             productImage.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (file) {
+                    // Vérifier la taille du fichier (max 5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        showNotification('L\'image est trop volumineuse (max 5MB)', 'error');
+                        return;
+                    }
+                    
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         imagePreview.innerHTML = `<img src="${e.target.result}" alt="Aperçu">`;
@@ -923,16 +1007,37 @@
                     return;
                 }
                 
+                if (price <= 0) {
+                    showNotification('Le prix doit être supérieur à 0', 'error');
+                    return;
+                }
+                
+                if (stock < 0) {
+                    showNotification('Le stock ne peut pas être négatif', 'error');
+                    return;
+                }
+                
                 let imageData = '';
                 if (imageFile) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         imageData = e.target.result;
-                        addProductToStorage(name, price, category, stock, description, imageData);
+                        if (editingProductId) {
+                            updateProductInStorage(editingProductId, name, price, category, stock, description, imageData);
+                        } else {
+                            addProductToStorage(name, price, category, stock, description, imageData);
+                        }
                     };
                     reader.readAsDataURL(imageFile);
                 } else {
-                    addProductToStorage(name, price, category, stock, description, '');
+                    if (editingProductId) {
+                        // Conserver l'image existante si aucune nouvelle image n'est sélectionnée
+                        const existingProduct = products.find(p => p.id === editingProductId);
+                        imageData = existingProduct ? existingProduct.image : '';
+                        updateProductInStorage(editingProductId, name, price, category, stock, description, imageData);
+                    } else {
+                        addProductToStorage(name, price, category, stock, description, '');
+                    }
                 }
             });
             
@@ -945,7 +1050,8 @@
                     category,
                     stock: parseInt(stock),
                     description,
-                    image: imageData
+                    image: imageData,
+                    dateAdded: new Date().toISOString()
                 };
                 
                 products.push(newProduct);
@@ -955,6 +1061,29 @@
                 clearProductForm();
                 
                 showNotification('Produit ajouté avec succès!', 'success');
+            }
+            
+            // Fonction pour mettre à jour un produit
+            function updateProductInStorage(productId, name, price, category, stock, description, imageData) {
+                const productIndex = products.findIndex(p => p.id === productId);
+                if (productIndex !== -1) {
+                    products[productIndex] = {
+                        ...products[productIndex],
+                        name,
+                        price: parseInt(price),
+                        category,
+                        stock: parseInt(stock),
+                        description,
+                        image: imageData
+                    };
+                    
+                    localStorage.setItem('products', JSON.stringify(products));
+                    renderAdminProducts();
+                    clearProductForm();
+                    editingProductId = null;
+                    
+                    showNotification('Produit modifié avec succès!', 'success');
+                }
             }
             
             // Effacer le formulaire
@@ -967,7 +1096,9 @@
                 document.getElementById('product-stock').value = '';
                 document.getElementById('product-description').value = '';
                 productImage.value = '';
-                imagePreview.innerHTML = '<span>Aperçu de l\'image</span>';
+                imagePreview.innerHTML = '<span><i class="fas fa-image"></i> Cliquez pour sélectionner une image</span>';
+                editingProductId = null;
+                addProductBtn.innerHTML = '<i class="fas fa-plus"></i> Ajouter le produit';
             }
             
             // Enregistrer les produits
@@ -985,6 +1116,11 @@
             exportProductsBtn.addEventListener('click', function() {
                 if (!isAuthenticated) {
                     showNotification('Veuillez vous reconnecter', 'error');
+                    return;
+                }
+                
+                if (products.length === 0) {
+                    showNotification('Aucun produit à exporter', 'error');
                     return;
                 }
                 
@@ -1019,10 +1155,19 @@
                     try {
                         const importedProducts = JSON.parse(e.target.result);
                         if (Array.isArray(importedProducts)) {
-                            products = importedProducts;
+                            // Fusionner avec les produits existants
+                            const existingIds = products.map(p => p.id);
+                            const newProducts = importedProducts.filter(p => !existingIds.includes(p.id));
+                            
+                            if (newProducts.length === 0) {
+                                showNotification('Aucun nouveau produit à importer', 'warning');
+                                return;
+                            }
+                            
+                            products = [...products, ...newProducts];
                             localStorage.setItem('products', JSON.stringify(products));
                             renderAdminProducts();
-                            showNotification('Catalogue importé avec succès!', 'success');
+                            showNotification(`${newProducts.length} produits importés avec succès!`, 'success');
                         } else {
                             showNotification('Format de fichier invalide', 'error');
                         }
@@ -1042,9 +1187,14 @@
                     return;
                 }
                 
-                products.forEach(product => {
+                // Trier les produits par date d'ajout (plus récents en premier)
+                const sortedProducts = [...products].sort((a, b) => {
+                    return new Date(b.dateAdded || 0) - new Date(a.dateAdded || 0);
+                });
+                
+                sortedProducts.forEach(product => {
                     const productElement = document.createElement('div');
-                    productElement.className = 'admin-product';
+                    productElement.className = 'admin-product fade-in';
                     
                     productElement.innerHTML = `
                         ${product.image ? 
@@ -1114,11 +1264,14 @@
                         openImageZoom(product.image);
                     });
                 } else {
-                    imagePreview.innerHTML = '<span>Aperçu de l\'image</span>';
+                    imagePreview.innerHTML = '<span><i class="fas fa-image"></i> Cliquez pour sélectionner une image</span>';
                 }
                 
-                // Supprimer l'ancien produit
-                deleteProduct(productId, false);
+                editingProductId = productId;
+                addProductBtn.innerHTML = '<i class="fas fa-save"></i> Mettre à jour le produit';
+                
+                // Faire défiler jusqu'au formulaire
+                document.querySelector('.admin-section').scrollIntoView({ behavior: 'smooth' });
                 
                 showNotification('Produit chargé pour modification', 'success');
             }
@@ -1141,6 +1294,13 @@
             
             // Fonction globale pour le zoom d'image (accessible depuis le HTML)
             window.openImageZoom = openImageZoom;
+            
+            // Gestion de la touche Entrée dans le formulaire d'authentification
+            adminPassword.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginBtn.click();
+                }
+            });
         });
     </script>
 </body>
