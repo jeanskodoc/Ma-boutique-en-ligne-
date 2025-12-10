@@ -8,31 +8,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #3498db;
-            --secondary: #2c3e50;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --success: #2ecc71;
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f8961e;
             --whatsapp: #25D366;
             --tmoney: #FF6B00;
             --flooz: #00A650;
-            --inscription: #9b59b6;
+            --inscription: #7209b7;
+            --card-bg: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e7f0 100%);
+            color: var(--dark);
             line-height: 1.6;
             min-height: 100vh;
             padding: 0;
+            overflow-x: hidden;
         }
         
         .container {
@@ -41,60 +48,82 @@
             padding: 20px;
         }
         
-        /* Style du bouton retour */
+        /* Bouton retour amélioré */
         .btn-retour {
-            padding: 10px 16px;
-            background-color: var(--light);
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--light), #e9ecef);
+            border: 2px solid transparent;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 14px;
-            margin-bottom: 20px;
-            transition: all 0.3s;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            color: var(--secondary);
+            box-shadow: var(--shadow);
         }
         
         .btn-retour:hover {
-            background-color: #e0e0e0;
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
         }
         
-        /* Header Styles */
+        /* Header modernisé */
         header {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            background: linear-gradient(135deg, var(--card-bg), #f8fafc);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: var(--radius) var(--radius) 0 0;
         }
         
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
+            gap: 25px;
         }
         
         .logo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 40px;
-            margin-right: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-size: 48px;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.3);
             overflow: hidden;
+            border: 4px solid white;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            transform: rotate(5deg) scale(1.05);
         }
         
         .logo img {
@@ -105,270 +134,488 @@
         }
         
         .boutique-name {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--secondary);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .owner {
             font-size: 18px;
             color: var(--primary);
-            margin-top: 5px;
+            margin-top: 8px;
+            font-weight: 500;
         }
         
         .admin-info {
-            background: #e8f4fc;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            border-left: 4px solid var(--primary);
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(58, 12, 163, 0.05));
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px auto;
+            border-left: 5px solid var(--primary);
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
+            backdrop-filter: blur(10px);
         }
         
         .admin-details {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-            font-size: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            font-size: 15px;
         }
         
         .admin-detail {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .admin-detail:hover {
+            background: white;
+            transform: translateX(5px);
         }
         
         .admin-detail i {
             color: var(--primary);
             width: 20px;
+            font-size: 18px;
         }
         
-        /* Navigation */
+        /* Navigation améliorée */
         nav {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 30px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
         
         .nav-btn {
-            padding: 12px 25px;
-            background: var(--light);
+            padding: 16px 30px;
+            background: linear-gradient(135deg, var(--light), #e9ecef);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             text-decoration: none;
-            color: inherit;
+            color: var(--dark);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .nav-btn:hover::before {
+            left: 100%;
         }
         
         .nav-btn:hover, .nav-btn:focus {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
         
         .nav-btn.whatsapp {
-            background: var(--whatsapp);
-            color: white;
-        }
-        
-        .nav-btn.tmoney {
-            background: var(--tmoney);
+            background: linear-gradient(135deg, var(--whatsapp), #128C7E);
             color: white;
         }
         
         .nav-btn.admin {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary), #2d00a3);
             color: white;
         }
         
         .nav-btn.inscription {
-            background: var(--inscription);
+            background: linear-gradient(135deg, var(--inscription), #560bad);
             color: white;
         }
         
-        /* Hero Section */
+        /* Hero Section modernisée */
         .hero {
             background: linear-gradient(135deg, var(--secondary), var(--primary));
             color: white;
-            padding: 50px 30px;
-            border-radius: 15px;
+            padding: 60px 40px;
+            border-radius: var(--radius);
             text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
         }
         
         .hero h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
+            font-size: 48px;
+            margin-bottom: 25px;
+            font-weight: 800;
+            position: relative;
         }
         
         .hero p {
             font-size: 20px;
             max-width: 800px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+            line-height: 1.8;
+            position: relative;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
         }
         
         .cta-btn {
-            padding: 15px 30px;
+            padding: 18px 35px;
             background: white;
             color: var(--primary);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
-            margin: 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .cta-btn:hover::after {
+            width: 300px;
+            height: 300px;
         }
         
         .cta-btn:hover, .cta-btn:focus {
             background: var(--accent);
             color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
         
         .cta-btn.whatsapp {
-            background: var(--whatsapp);
-            color: white;
-        }
-        
-        .cta-btn.tmoney {
-            background: var(--tmoney);
+            background: linear-gradient(135deg, var(--whatsapp), #128C7E);
             color: white;
         }
         
         .cta-btn.inscription {
-            background: var(--inscription);
+            background: linear-gradient(135deg, var(--inscription), #560bad);
             color: white;
+        }
+        
+        /* Section Inscription */
+        .inscription-section {
+            background: linear-gradient(135deg, var(--inscription), #560bad);
+            color: white;
+            padding: 60px 40px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .inscription-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .inscription-section h2 {
+            margin-bottom: 25px;
+            font-size: 42px;
+            font-weight: 800;
+            position: relative;
+        }
+        
+        .inscription-section p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+            position: relative;
+        }
+        
+        .inscription-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .inscription-step {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .inscription-step:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-10px) scale(1.03);
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: white;
+            color: var(--inscription);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .inscription-step:hover .step-number {
+            transform: rotate(360deg);
+            background: var(--accent);
+            color: white;
+        }
+        
+        .inscription-step h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
         }
         
         /* Features Section */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-bottom: 40px;
         }
         
         .feature-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
         
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-hover);
         }
         
         .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--light);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--light), #e9ecef);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
             color: var(--primary);
-            font-size: 30px;
+            font-size: 36px;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: rotate(10deg) scale(1.1);
         }
         
         .feature-card h3 {
             color: var(--secondary);
-            margin-bottom: 15px;
-            font-size: 22px;
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 700;
         }
         
         /* Benefits Section */
         .benefits {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 50px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
         }
         
         .benefits h2 {
             text-align: center;
             color: var(--secondary);
-            margin-bottom: 30px;
-            font-size: 32px;
+            margin-bottom: 40px;
+            font-size: 42px;
+            font-weight: 800;
         }
         
         .benefits-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
         
         .benefit-item {
             display: flex;
             align-items: flex-start;
-            gap: 15px;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+        
+        .benefit-item:hover {
+            background: rgba(67, 97, 238, 0.1);
+            transform: translateX(10px);
         }
         
         .benefit-icon {
-            color: var(--success);
-            font-size: 24px;
+            color: var(--primary);
+            font-size: 28px;
             margin-top: 5px;
             flex-shrink: 0;
+            transition: var(--transition);
+        }
+        
+        .benefit-item:hover .benefit-icon {
+            color: var(--accent);
+            transform: scale(1.2);
         }
         
         /* Payment Methods */
         .payment-methods {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 50px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
             text-align: center;
         }
         
         .payment-methods h2 {
             color: var(--secondary);
-            margin-bottom: 30px;
-            font-size: 32px;
+            margin-bottom: 40px;
+            font-size: 42px;
+            font-weight: 800;
         }
         
         .payment-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
         }
         
         .payment-card {
             background: var(--light);
-            border-radius: 10px;
-            padding: 20px;
-            transition: transform 0.3s;
+            border-radius: 15px;
+            padding: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+        
+        .payment-card.whatsapp::before {
+            background: var(--whatsapp);
+        }
+        
+        .payment-card.tmoney::before {
+            background: var(--tmoney);
+        }
+        
+        .payment-card.flooz::before {
+            background: var(--flooz);
         }
         
         .payment-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
         }
         
         .payment-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
+            font-size: 48px;
+            margin-bottom: 20px;
         }
         
         .payment-card.whatsapp .payment-icon {
@@ -387,157 +634,166 @@
         .testimonials {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 50px 30px;
-            border-radius: 15px;
+            padding: 60px 40px;
+            border-radius: var(--radius);
             text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,50 Q50,0 100,50 Q50,100 0,50" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
         }
         
         .testimonials h2 {
-            margin-bottom: 30px;
-            font-size: 32px;
+            margin-bottom: 40px;
+            font-size: 42px;
+            font-weight: 800;
+            position: relative;
         }
         
         .testimonial-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
         }
         
         .testimonial-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
             text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+        
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-10px);
         }
         
         .testimonial-text {
             font-style: italic;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 17px;
+            line-height: 1.7;
         }
         
         .testimonial-author {
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         /* Footer */
         footer {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
             color: white;
-            padding: 30px;
-            border-radius: 15px;
+            padding: 50px 40px;
+            border-radius: var(--radius);
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
         
         .contact-info {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .contact-info p {
+            margin: 10px 0;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
         
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 18px;
-            transition: all 0.3s;
+            font-size: 20px;
+            transition: var(--transition);
             text-decoration: none;
         }
         
         .social-link:hover, .social-link:focus {
             background: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-5px) rotate(5deg);
         }
         
-        /* Logo upload section */
+        /* Logo upload */
         .logo-upload {
             text-align: center;
-            margin: 10px 0;
+            margin: 15px 0;
         }
         
         .logo-upload-btn {
-            padding: 8px 15px;
-            background: var(--primary);
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
-            margin-top: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .logo-upload-btn:hover, .logo-upload-btn:focus {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--accent), #d9048e);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(247, 37, 133, 0.3);
         }
         
-        /* Section inscription */
-        .inscription-section {
-            background: linear-gradient(135deg, var(--inscription), #8e44ad);
-            color: white;
-            padding: 50px 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .inscription-section h2 {
-            margin-bottom: 20px;
-            font-size: 32px;
-        }
-        
-        .inscription-section p {
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .inscription-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .inscription-step {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .step-number {
-            width: 40px;
-            height: 40px;
-            background: white;
-            color: var(--inscription);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin: 0 auto 15px;
-            font-size: 20px;
-        }
-        
-        /* Animation pour le défilement */
+        /* Animations */
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .fade-in.visible {
@@ -545,48 +801,53 @@
             transform: translateY(0);
         }
         
-        /* Améliorations pour mobile et tablette */
+        /* Responsive Design */
         @media (min-width: 768px) {
             .admin-details {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
         @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
             .boutique-name {
-                font-size: 28px;
+                font-size: 32px;
             }
             
-            .hero h1 {
-                font-size: 28px;
+            .hero h1, .inscription-section h2, .benefits h2, 
+            .payment-methods h2, .testimonials h2 {
+                font-size: 32px;
             }
             
-            .hero p {
-                font-size: 18px;
+            .hero, .inscription-section, .benefits, 
+            .payment-methods, .testimonials, footer {
+                padding: 40px 25px;
             }
             
             nav {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
             }
             
             .nav-btn {
                 width: 100%;
-                max-width: 250px;
                 justify-content: center;
             }
             
-            .logo-container {
+            .cta-buttons {
                 flex-direction: column;
-                text-align: center;
+                gap: 15px;
             }
             
-            .logo {
-                margin-right: 0;
-                margin-bottom: 15px;
+            .cta-btn {
+                width: 100%;
+                justify-content: center;
             }
             
-            .features {
+            .features, .payment-cards, .testimonial-cards, .inscription-steps {
                 grid-template-columns: 1fr;
             }
             
@@ -594,16 +855,14 @@
                 grid-template-columns: 1fr;
             }
             
-            .payment-cards {
-                grid-template-columns: 1fr;
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
             }
             
-            .testimonial-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .inscription-steps {
-                grid-template-columns: 1fr;
+            .logo {
+                margin-right: 0;
             }
         }
         
@@ -612,58 +871,34 @@
                 padding: 10px;
             }
             
-            header, .hero, .benefits, .payment-methods, .testimonials, footer {
-                padding: 20px 15px;
+            header, .hero, .inscription-section, .benefits, 
+            .payment-methods, .testimonials, footer {
+                padding: 30px 20px;
             }
             
             .boutique-name {
-                font-size: 24px;
+                font-size: 28px;
             }
             
-            .hero h1 {
-                font-size: 24px;
+            .hero h1, .inscription-section h2, .benefits h2, 
+            .payment-methods h2, .testimonials h2 {
+                font-size: 28px;
             }
             
-            .hero p {
-                font-size: 16px;
+            .hero p, .inscription-section p {
+                font-size: 18px;
             }
             
-            .cta-btn {
-                padding: 12px 20px;
-                font-size: 16px;
-                width: 100%;
-                margin: 5px 0;
-            }
-            
-            .feature-card, .payment-card, .inscription-step {
-                padding: 20px 15px;
+            .feature-card, .payment-card, .inscription-step, .testimonial-card {
+                padding: 25px 20px;
             }
             
             .benefits, .payment-methods {
-                padding: 25px 15px;
+                padding: 35px 20px;
             }
         }
         
-        /* Améliorations pour tablettes */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .payment-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .inscription-steps {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        /* Améliorations d'accessibilité */
+        /* Accessibilité */
         .sr-only {
             position: absolute;
             width: 1px;
@@ -681,7 +916,42 @@
         }
         
         button:focus, .nav-btn:focus, .cta-btn:focus, .logo-upload-btn:focus {
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.5);
+        }
+        
+        /* Effets de particules */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -694,6 +964,8 @@
         
         <!-- Header avec logo et nom -->
         <header>
+            <div class="particles" id="particles"></div>
+            
             <div class="logo-container">
                 <div class="logo" id="logo-container">
                     <i class="fas fa-store" id="default-logo"></i>
@@ -753,27 +1025,26 @@
         
         <!-- Section Hero -->
         <section class="hero" aria-labelledby="hero-title">
+            <div class="particles"></div>
             <h1 id="hero-title">Votre Plateforme de Vente Complète</h1>
             <p>Gérez votre boutique en ligne, vendez vos produits et acceptez les paiements mobiles en toute simplicité. Solution tout-en-un pour commerçants et clients.</p>
-            <div>
+            <div class="cta-buttons">
                 <a href="client.html" class="cta-btn">
                     <i class="fas fa-shopping-bag" aria-hidden="true"></i> Voir les Produits
                 </a>
                 <a href="inscription.html" class="cta-btn inscription">
                     <i class="fas fa-user-plus" aria-hidden="true"></i> Inscription Boutique
                 </a>
-                <a href="https://wa.me/22892871605" class="cta-btn whatsapp" target="_blank" rel="noopener">
-                    <i class="fab fa-whatsapp" aria-hidden="true"></i> Commander via WhatsApp
-                </a>
             </div>
         </section>
         
         <!-- Section Inscription -->
         <section class="inscription-section" id="inscription" aria-labelledby="inscription-title">
+            <div class="particles"></div>
             <h2 id="inscription-title">Rejoignez Notre Plateforme</h2>
             <p>Inscrivez votre boutique et commencez à vendre en ligne dès aujourd'hui. Processus simple et rapide avec accompagnement personnalisé.</p>
             
-            <a href="inscription.html" class="cta-btn inscription" style="background: white; color: var(--inscription);">
+            <a href="inscription.html" class="cta-btn" style="background: white; color: var(--inscription);">
                 <i class="fas fa-user-plus" aria-hidden="true"></i> S'inscrire Maintenant
             </a>
             
@@ -910,6 +1181,7 @@
         
         <!-- Témoignages -->
         <section class="testimonials" aria-labelledby="testimonials-title">
+            <div class="particles"></div>
             <h2 id="testimonials-title">Témoignages de Commerçants</h2>
             <div class="testimonial-cards">
                 <div class="testimonial-card fade-in">
@@ -931,6 +1203,7 @@
         
         <!-- Footer -->
         <footer id="contact">
+            <div class="particles"></div>
             <div class="contact-info">
                 <h3>Contact & Support</h3>
                 <p><i class="fas fa-phone" aria-hidden="true"></i> Service Client: 92 87 16 05</p>
@@ -954,7 +1227,7 @@
                 </a>
             </div>
             
-            <p>&copy; 2025 Plateforme de Vente en Ligne - Développé par Kossi AGBELENKO</p>
+            <p style="margin-top: 30px; opacity: 0.9;">&copy; 2025 Plateforme de Vente en Ligne - Développé par Kossi AGBELENKO</p>
         </footer>
     </div>
 
@@ -997,8 +1270,7 @@
             function checkFade() {
                 fadeElements.forEach(element => {
                     const elementTop = element.getBoundingClientRect().top;
-                    const elementBottom = element.getBoundingClientRect().bottom;
-                    const isVisible = (elementTop < window.innerHeight - 50) && (elementBottom > 0);
+                    const isVisible = elementTop < window.innerHeight - 100;
                     
                     if (isVisible) {
                         element.classList.add('visible');
@@ -1023,48 +1295,61 @@
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
-                            top: targetElement.offsetTop - 20,
+                            top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
                     }
                 });
             });
             
-            // Vérifier l'existence des pages
-            function checkPages() {
-                // Vérifier si la page boutique existe
-                fetch('client.html')
-                    .then(response => {
-                        if (!response.ok) {
-                            console.warn('La page client.html n\'existe pas encore');
-                        }
-                    })
-                    .catch(error => {
-                        console.warn('La page client.html n\'existe pas encore');
-                    });
+            // Effets de particules
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                if (!particlesContainer) return;
+                
+                const particleCount = 15;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
                     
-                // Vérifier si la page admin existe
-                fetch('admin.html')
-                    .then(response => {
-                        if (!response.ok) {
-                            console.warn('La page admin.html n\'existe pas encore');
-                        }
-                    })
-                    .catch(error => {
-                        console.warn('La page admin.html n\'existe pas encore');
-                    });
+                    // Taille aléatoire
+                    const size = Math.random() * 4 + 1;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
                     
-                // Vérifier si la page inscription existe
-                fetch('inscription.html')
-                    .then(response => {
-                        if (!response.ok) {
-                            console.warn('La page inscription.html n\'existe pas encore');
-                        }
-                    })
-                    .catch(error => {
-                        console.warn('La page inscription.html n\'existe pas encore');
-                    });
+                    // Position aléatoire
+                    particle.style.left = `${Math.random() * 100}%`;
+                    
+                    // Délai d'animation aléatoire
+                    particle.style.animationDelay = `${Math.random() * 15}s`;
+                    
+                    // Durée d'animation aléatoire
+                    const duration = Math.random() * 10 + 10;
+                    particle.style.animationDuration = `${duration}s`;
+                    
+                    particlesContainer.appendChild(particle);
+                }
             }
+            
+            // Créer des particules pour chaque section
+            document.querySelectorAll('.particles').forEach((container, index) => {
+                const particleCount = 8;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    const size = Math.random() * 3 + 1;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 15 + index * 5}s`;
+                    particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                    
+                    container.appendChild(particle);
+                }
+            });
             
             // Fonction pour afficher les notifications
             function showNotification(message, type) {
@@ -1074,29 +1359,68 @@
                     position: fixed;
                     top: 20px;
                     right: 20px;
-                    padding: 15px 20px;
-                    background: ${type === 'success' ? '#2ecc71' : '#e74c3c'};
+                    padding: 18px 25px;
+                    background: ${type === 'success' ? '#4cc9f0' : '#f72585'};
                     color: white;
-                    border-radius: 5px;
-                    z-index: 1000;
+                    border-radius: 12px;
+                    z-index: 10000;
                     font-weight: 600;
-                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                    transition: all 0.3s;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    transform: translateX(120%);
+                    font-size: 15px;
                 `;
                 notification.textContent = message;
                 notification.setAttribute('role', 'alert');
                 document.body.appendChild(notification);
                 
+                // Animation d'entrée
                 setTimeout(() => {
-                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateX(0)';
+                }, 10);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(120%)';
                     setTimeout(() => {
                         document.body.removeChild(notification);
-                    }, 300);
+                    }, 400);
                 }, 3000);
             }
             
+            // Vérifier l'existence des pages
+            function checkPages() {
+                const pages = ['client.html', 'admin.html', 'inscription.html'];
+                
+                pages.forEach(page => {
+                    fetch(page)
+                        .then(response => {
+                            if (!response.ok) {
+                                console.warn(`La page ${page} n'existe pas encore`);
+                            }
+                        })
+                        .catch(error => {
+                            console.warn(`La page ${page} n'existe pas encore`);
+                        });
+                });
+            }
+            
+            // Initialiser les particules
+            createParticles();
+            
             // Vérifier les pages au chargement
             checkPages();
+            
+            // Effet de vague sur les boutons au hover
+            document.querySelectorAll('.cta-btn').forEach(btn => {
+                btn.addEventListener('mouseenter', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    this.style.setProperty('--x', `${x}px`);
+                    this.style.setProperty('--y', `${y}px`);
+                });
+            });
         });
     </script>
 </body>
