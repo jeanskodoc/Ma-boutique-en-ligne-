@@ -13,8 +13,7 @@
             --warning: #f39c12;
             --danger: #e74c3c;
             --whatsapp: #25D366;
-            --tmoney: #FF6B00;
-            --flooz: #00A650;
+            --esodi: #9b59b6;
             --light: #ecf0f1;
             --dark: #2c3e50;
         }
@@ -356,13 +355,8 @@
             color: white;
         }
         
-        .btn-tmoney {
-            background: var(--tmoney);
-            color: white;
-        }
-        
-        .btn-flooz {
-            background: var(--flooz);
+        .btn-esodi {
+            background: var(--esodi);
             color: white;
         }
         
@@ -463,13 +457,8 @@
             transform: scale(0.98);
         }
         
-        .modal-btn-tmoney {
-            background: var(--tmoney);
-            color: white;
-        }
-        
-        .modal-btn-flooz {
-            background: var(--flooz);
+        .modal-btn-esodi {
+            background: var(--esodi);
             color: white;
         }
         
@@ -897,20 +886,11 @@
                 </div>
                 
                 <div class="payment-info">
-                    <p><strong>Options de paiement:</strong></p>
+                    <p><strong>Option de paiement:</strong></p>
                     <ul>
-                        <li><strong>T-Money/Yas:</strong> Transferez le montant au numéro <strong>92 87 16 05</strong></li>
-                        <li><strong>Flooz:</strong> Transferez le montant au numéro <strong>92 87 16 05</strong></li>
+                        <li><strong>Carte ESODI:</strong> Effectuez un virement via le lien sécurisé <strong>https://jeanskodoc.github.io/Carte-virtuelle-/</strong></li>
                     </ul>
                     <p>Votre commande sera traitée dès réception du paiement.</p>
-                    
-                    <div class="app-download">
-                        <p>Téléchargez l'application T-Money/Yas: 
-                            <a href="https://play.google.com/store/apps/details?id=tg.togocom.tmoney" target="_blank">
-                                <i class="fab fa-google-play"></i> Google Play Store
-                            </a>
-                        </p>
-                    </div>
                 </div>
             </div>
             
@@ -930,12 +910,8 @@
                         <i class="fab fa-whatsapp"></i> Envoyer par WhatsApp
                     </button>
                     
-                    <button class="btn btn-tmoney" id="tmoney-btn">
-                        <i class="fas fa-money-bill-wave"></i> Payer avec T-Money/Yas
-                    </button>
-                    
-                    <button class="btn btn-flooz" id="flooz-btn">
-                        <i class="fas fa-mobile-alt"></i> Payer avec Flooz
+                    <button class="btn btn-esodi" id="esodi-btn">
+                        <i class="fas fa-credit-card"></i> Payer avec Carte ESODI
                     </button>
                 </div>
             </div>
@@ -946,42 +922,29 @@
         </footer>
     </div>
 
-    <!-- Modal de Paiement -->
+    <!-- Modal de Paiement ESODI -->
     <div class="payment-modal" id="payment-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <i class="fas fa-money-bill-wave"></i> Procéder au Paiement
+                <i class="fas fa-credit-card"></i> Paiement par Carte ESODI
             </div>
             
             <p>Montant à payer: <strong id="modal-amount">0 FCFA</strong></p>
-            <p>Numéro de bénéficiaire: <strong>92 87 16 05</strong></p>
             
             <div class="payment-steps">
                 <p><strong>Instructions de paiement:</strong></p>
                 <ol>
-                    <li>Ouvrez votre application T-Money/Yas ou Flooz</li>
-                    <li>Sélectionnez l'option de transfert d'argent</li>
-                    <li>Entrez le numéro <strong>92 87 16 05</strong></li>
-                    <li>Saisissez le montant indiqué ci-dessus</li>
-                    <li>Confirmez la transaction</li>
+                    <li>Cliquez sur le bouton "Accéder au Portail ESODI" ci-dessous</li>
+                    <li>Vous serez redirigé vers le portail de paiement sécurisé ESODI</li>
+                    <li>Suivez les instructions sur le portail pour effectuer votre paiement</li>
+                    <li>Une fois le paiement effectué, revenez sur cette page</li>
+                    <li>Cliquez sur "Envoyer par WhatsApp" pour confirmer votre commande</li>
                 </ol>
             </div>
             
-            <div class="app-download">
-                <p>Si vous n'avez pas l'application T-Money/Yas: 
-                    <a href="https://play.google.com/store/apps/details?id=tg.togocom.tmoney" target="_blank">
-                        <i class="fab fa-google-play"></i> Télécharger sur Google Play
-                    </a>
-                </p>
-            </div>
-            
             <div class="modal-buttons">
-                <button class="modal-btn modal-btn-tmoney" id="yas-btn">
-                    <i class="fas fa-external-link-alt"></i> Ouvrir T-Money/Yas
-                </button>
-                
-                <button class="modal-btn modal-btn-flooz" id="flooz-modal-btn">
-                    <i class="fas fa-external-link-alt"></i> Ouvrir Flooz
+                <button class="modal-btn modal-btn-esodi" id="esodi-modal-btn">
+                    <i class="fas fa-external-link-alt"></i> Accéder au Portail ESODI
                 </button>
                 
                 <button class="modal-btn modal-btn-cancel" id="cancel-btn">
@@ -1006,8 +969,7 @@
             // Éléments du modal
             const paymentModal = document.getElementById('payment-modal');
             const modalAmount = document.getElementById('modal-amount');
-            const yasBtn = document.getElementById('yas-btn');
-            const floozModalBtn = document.getElementById('flooz-modal-btn');
+            const esodiModalBtn = document.getElementById('esodi-modal-btn');
             const cancelBtn = document.getElementById('cancel-btn');
             
             // Éléments de l'interface client
@@ -1360,23 +1322,18 @@
                 window.open(`https://wa.me/${whatsappNumber}?text=${whatsappText}`, '_blank');
             });
             
-            document.getElementById('tmoney-btn').addEventListener('click', function() {
+            document.getElementById('esodi-btn').addEventListener('click', function() {
                 if (!validateOrder()) return;
                 paymentModal.style.display = 'flex';
             });
             
-            document.getElementById('flooz-btn').addEventListener('click', function() {
-                if (!validateOrder()) return;
-                paymentModal.style.display = 'flex';
-            });
-            
-            // Ouvrir les applications de paiement
-            yasBtn.addEventListener('click', function() {
-                window.location.href = 'tmoney://send';
-            });
-            
-            floozModalBtn.addEventListener('click', function() {
-                window.location.href = 'flooz://send';
+            // Ouvrir le portail de paiement ESODI
+            esodiModalBtn.addEventListener('click', function() {
+                const esodiUrl = "https://jeanskodoc.github.io/Carte-virtuelle-/";
+                window.open(esodiUrl, '_blank');
+                
+                // Afficher une notification
+                showNotification('Ouverture du portail de paiement ESODI...', 'success');
             });
             
             // Fermer le modal de paiement
@@ -1457,6 +1414,7 @@
                 
                 orderText += `⏰ *Date de commande:* ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}\n\n`;
                 
+                orderText += `💳 *Méthode de paiement:* Carte ESODI\n\n`;
                 orderText += `Merci pour votre commande!`;
                 
                 return orderText;
