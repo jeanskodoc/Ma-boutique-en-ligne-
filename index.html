@@ -402,12 +402,12 @@
             color: var(--gray);
         }
 
-        /* Paiements */
+        /* Paiements - intégré dans l'onglet Contact */
         .payment-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .payment-method {
@@ -418,6 +418,15 @@
             transition: var(--transition);
             cursor: pointer;
         }
+
+        .payment-method:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .payment-method.whatsapp:hover { background: linear-gradient(135deg, #25D366, #128C7E); color: white; }
+        .payment-method.tmoney:hover { background: linear-gradient(135deg, #FF6B00, #E55A00); color: white; }
+        .payment-method.flooz:hover { background: linear-gradient(135deg, #00A650, #008842); color: white; }
 
         .payment-icon {
             font-size: 2.5rem;
@@ -557,6 +566,11 @@
             font-size: 1rem;
         }
 
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
         /* Notification */
         .notification {
             position: fixed;
@@ -583,6 +597,17 @@
                 transform: translateX(0);
                 opacity: 1;
             }
+        }
+
+        /* Section méthodes de paiement dans contact */
+        .payment-section {
+            margin: 1.5rem 0;
+        }
+
+        .payment-section h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
 
         /* Responsive breakpoints */
@@ -740,7 +765,7 @@
             </div>
         </div>
 
-        <!-- Onglets -->
+        <!-- Onglets (sans l'onglet Paiements) -->
         <div class="tabs-system">
             <div class="tabs-header">
                 <button class="tab-btn active" data-tab="accueil">
@@ -754,10 +779,6 @@
                 <button class="tab-btn" data-tab="inscription">
                     <i class="fas fa-user-plus"></i>
                     <span>Inscription</span>
-                </button>
-                <button class="tab-btn" data-tab="paiements">
-                    <i class="fas fa-credit-card"></i>
-                    <span>Paiements</span>
                 </button>
                 <button class="tab-btn" data-tab="contact">
                     <i class="fas fa-headset"></i>
@@ -886,39 +907,34 @@
                     </div>
                 </div>
 
-                <!-- Paiements -->
-                <div class="tab-pane" id="paiements">
-                    <div class="info-box">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Paiements sécurisés</h3>
-                        <p>Transactions cryptées</p>
-                    </div>
-
-                    <div class="payment-grid">
-                        <div class="payment-method whatsapp">
-                            <div class="payment-icon"><i class="fab fa-whatsapp"></i></div>
-                            <h3>WhatsApp Pay</h3>
-                            <p>Via WhatsApp</p>
-                        </div>
-                        <div class="payment-method tmoney">
-                            <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
-                            <h3>T-Money / Yas</h3>
-                            <p>Transfert simple</p>
-                        </div>
-                        <div class="payment-method flooz">
-                            <div class="payment-icon"><i class="fas fa-mobile-alt"></i></div>
-                            <h3>Flooz</h3>
-                            <p>Rapide & sécurisé</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact -->
+                <!-- Contact (avec méthodes de paiement intégrées) -->
                 <div class="tab-pane" id="contact">
                     <div class="info-box">
                         <i class="fas fa-headset"></i>
                         <h3>Service client disponible</h3>
                         <p>8h - 20h, 7j/7</p>
+                    </div>
+
+                    <!-- Méthodes de paiement intégrées dans l'onglet Contact -->
+                    <div class="payment-section">
+                        <h3><i class="fas fa-credit-card"></i> Méthodes de paiement acceptées</h3>
+                        <div class="payment-grid">
+                            <div class="payment-method whatsapp">
+                                <div class="payment-icon"><i class="fab fa-whatsapp"></i></div>
+                                <h3>WhatsApp Pay</h3>
+                                <p>Via WhatsApp</p>
+                            </div>
+                            <div class="payment-method tmoney">
+                                <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
+                                <h3>T-Money / Yas</h3>
+                                <p>Transfert simple</p>
+                            </div>
+                            <div class="payment-method flooz">
+                                <div class="payment-icon"><i class="fas fa-mobile-alt"></i></div>
+                                <h3>Flooz</h3>
+                                <p>Rapide & sécurisé</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="quick-nav">
